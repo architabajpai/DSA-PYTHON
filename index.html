@@ -1,0 +1,2168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSA Encyclopedia — Complete Data Structures & Algorithms Guide</title>
+<meta name="description" content="In-depth guide to Arrays, Strings, Recursion, Sorting, Linked Lists, Stacks, Queues, Hashing, Trees, Graphs, and Dynamic Programming with Python code and real-world use cases.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b27;
+    --bg3: #1e2535;
+    --bg4: #252d40;
+    --txt: #e8ecf4;
+    --txt2: #8892a4;
+    --txt3: #5a6478;
+    --brd: rgba(255,255,255,0.07);
+    --brd2: rgba(255,255,255,0.12);
+    --accent: #4A6CF7;
+    --accent2: #7C3AED;
+    --accent-glow: rgba(74,108,247,0.15);
+    --green: #10B981;
+    --amber: #F59E0B;
+    --red: #EF4444;
+    --teal: #14B8A6;
+    --pink: #EC4899;
+    --sidebar-w: 240px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+    color: var(--txt);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--txt3); }
+
+  /* ── LAYOUT ── */
+  .shell { display: flex; min-height: 100vh; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--bg2);
+    border-right: 1px solid var(--brd);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--brd);
+  }
+  .sidebar-logo .brand {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .sidebar-logo .brand-sub {
+    font-size: 11px;
+    color: var(--txt3);
+    margin-top: 2px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    padding: 16px 0 8px;
+    flex: 1;
+  }
+  .sidebar-section-label {
+    padding: 0 20px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--txt3);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    font-size: 13px;
+    color: var(--txt2);
+    transition: all .15s;
+    font-weight: 400;
+    user-select: none;
+  }
+  .nav-item:hover { background: var(--bg3); color: var(--txt); }
+  .nav-item.active {
+    border-left-color: var(--accent);
+    background: rgba(74,108,247,0.08);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .nav-num {
+    font-size: 11px;
+    color: var(--txt3);
+    font-family: 'JetBrains Mono', monospace;
+    min-width: 18px;
+  }
+  .nav-item.active .nav-num { color: var(--accent); opacity: 0.7; }
+  .nav-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-left: auto;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--brd);
+    font-size: 11px;
+    color: var(--txt3);
+    line-height: 1.5;
+  }
+  .sidebar-footer a { color: var(--txt2); text-decoration: none; }
+  .sidebar-footer a:hover { color: var(--accent); }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+    padding: 0 0 80px;
+  }
+
+  /* ── HERO (shown only on landing) ── */
+  .hero {
+    background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--brd);
+    padding: 48px 48px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(74,108,247,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--txt2);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { }
+  .hero-stat .num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--txt);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .hero-stat .lbl { font-size: 12px; color: var(--txt3); margin-top: 2px; }
+
+  /* ── TOPIC PAGE ── */
+  .topic { display: none; }
+  .topic.active { display: block; }
+
+  .topic-header {
+    padding: 36px 48px 28px;
+    border-bottom: 1px solid var(--brd);
+    background: linear-gradient(180deg, var(--bg2) 0%, transparent 100%);
+  }
+  .topic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    border: 1px solid;
+  }
+  .topic-title {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    margin-bottom: 10px;
+  }
+  .topic-subtitle {
+    font-size: 14px;
+    color: var(--txt2);
+    line-height: 1.75;
+    max-width: 680px;
+  }
+
+  .topic-body { padding: 36px 48px; }
+
+  /* ── TABS ── */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--brd);
+    margin-bottom: 28px;
+  }
+  .tab {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: var(--txt2);
+    transition: all .15s;
+    margin-bottom: -1px;
+    user-select: none;
+  }
+  .tab:hover { color: var(--txt); background: var(--bg2); }
+  .tab.active { border-bottom-color: var(--accent); color: var(--accent); background: transparent; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── CARDS ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .concept-card {
+    background: var(--bg2);
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: border-color .2s;
+  }
+  .concept-card:hover { border-color: var(--brd2); }
+  .concept-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--txt);
+  }
+  .concept-card p { font-size: 13px; color: var(--txt2); line-height: 1.65; }
+
+  /* ── INFO BOXES ── */
+  .info-box {
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.7;
+    border: 1px solid;
+  }
+  .info-box.blue { background: rgba(74,108,247,.08); border-color: rgba(74,108,247,.25); color: #a5b4fc; }
+  .info-box.green { background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.25); color: #6ee7b7; }
+  .info-box.amber { background: rgba(245,158,11,.08); border-color: rgba(245,158,11,.25); color: #fcd34d; }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 24px 0 14px;
+    color: var(--txt);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: -.01em;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--brd); }
+
+  /* ── COMPLEXITY TABLE ── */
+  .table-wrap { overflow-x: auto; margin-bottom: 24px; border-radius: 10px; border: 1px solid var(--brd); }
+  .complexity-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .complexity-table th {
+    background: var(--bg3);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--txt3);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--brd);
+    white-space: nowrap;
+  }
+  .complexity-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--brd);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    vertical-align: middle;
+  }
+  .complexity-table tr:last-child td { border-bottom: none; }
+  .complexity-table tr:hover td { background: var(--bg2); }
+  .c-green { color: #34d399; font-weight: 600; }
+  .c-amber { color: #fbbf24; font-weight: 600; }
+  .c-red { color: #f87171; font-weight: 600; }
+  .c-blue { color: #93c5fd; font-weight: 600; }
+
+  /* ── CODE BLOCKS ── */
+  .code-wrap {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    border: 1px solid var(--brd);
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--brd);
+  }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+  }
+  .code-lang {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--txt3);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .copy-btn {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--brd2);
+    background: transparent;
+    cursor: pointer;
+    color: var(--txt2);
+    font-family: 'Sora', sans-serif;
+    font-weight: 500;
+    transition: all .15s;
+  }
+  .copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  pre {
+    background: var(--bg3);
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.75;
+    color: #cdd6f4;
+  }
+  .kw { color: #cba6f7; }
+  .fn { color: #89b4fa; }
+  .str { color: #a6e3a1; }
+  .cm { color: #585b70; font-style: italic; }
+  .nb { color: #fab387; }
+  .cls { color: #89dceb; }
+  .op { color: #89dceb; }
+
+  /* ── VISUALIZERS ── */
+  .viz-container {
+    background: var(--bg2);
+    border: 1px solid var(--brd);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .viz-label { font-size: 12px; color: var(--txt3); text-align: center; margin-top: 10px; }
+  .viz-caption { font-size: 12px; color: var(--txt3); margin-bottom: 12px; }
+
+  /* Array cells */
+  .arr-viz { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; align-items: flex-end; }
+  .arr-cell {
+    width: 52px; height: 52px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    border: 1px solid var(--brd2);
+    transition: all .35s cubic-bezier(.4,0,.2,1);
+    background: var(--bg3);
+    color: var(--txt);
+  }
+  .arr-cell .idx { font-size: 9px; color: var(--txt3); font-weight: 400; margin-top: 2px; }
+  .arr-cell.highlight { background: var(--accent); color: #fff; border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(74,108,247,0.4); }
+  .arr-cell.found { background: var(--green); color: #fff; border-color: var(--green); transform: translateY(-6px); box-shadow: 0 8px 24px rgba(16,185,129,0.4); }
+  .arr-cell.dimmed { opacity: 0.25; }
+
+  /* LL visualizer */
+  .ll-viz { display: flex; align-items: center; gap: 0; overflow-x: auto; padding: 8px 0 4px; }
+  .ll-node { display: flex; align-items: center; }
+  .ll-box {
+    background: var(--bg3);
+    border: 1px solid var(--brd2);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+  }
+  .ll-val { padding: 10px 14px; font-size: 14px; font-weight: 600; border-right: 1px solid var(--brd2); font-family: 'JetBrains Mono', monospace; }
+  .ll-ptr { padding: 10px 12px; font-size: 11px; color: var(--txt3); font-family: 'JetBrains Mono', monospace; }
+  .ll-arrow { width: 28px; text-align: center; color: var(--txt3); font-size: 18px; }
+  .ll-null { padding: 10px 14px; font-size: 12px; color: var(--txt3); background: var(--bg4); border: 1px dashed var(--brd2); border-radius: 8px; font-family: 'JetBrains Mono', monospace; }
+
+  /* Stack/Queue */
+  .sv-wrap { display: flex; gap: 48px; flex-wrap: wrap; }
+  .stack-viz { display: flex; flex-direction: column; gap: 5px; width: 140px; }
+  .stack-frame {
+    padding: 10px 18px;
+    background: var(--bg3);
+    border: 1px solid var(--brd2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all .3s;
+  }
+  .stack-frame.top { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 16px rgba(74,108,247,0.3); }
+  .queue-viz { display: flex; gap: 5px; flex-wrap: wrap; }
+  .queue-item {
+    padding: 10px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--brd2);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all .3s;
+  }
+  .queue-item.head { background: var(--green); color: #fff; border-color: var(--green); }
+  .queue-item.tail { background: var(--amber); color: #1a1a00; border-color: var(--amber); }
+
+  /* Hash viz */
+  .hash-viz { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hash-bucket { min-width: 88px; }
+  .hash-bucket-idx { font-size: 10px; color: var(--txt3); font-weight: 600; margin-bottom: 5px; text-align: center; font-family: 'JetBrains Mono', monospace; }
+  .hash-bucket-box { border: 1px solid var(--brd2); border-radius: 8px; min-height: 44px; padding: 5px; background: var(--bg3); display: flex; flex-direction: column; gap: 4px; }
+  .hash-entry { background: var(--accent); color: #fff; border-radius: 5px; padding: 4px 8px; font-size: 11px; font-weight: 600; text-align: center; font-family: 'JetBrains Mono', monospace; }
+
+  /* Tree SVG */
+  .tree-svg { width: 100%; max-height: 220px; overflow: visible; }
+
+  /* ── USE CASES ── */
+  .usecase-list { display: flex; flex-direction: column; gap: 14px; }
+  .usecase-item {
+    display: flex;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--brd);
+    background: var(--bg2);
+    transition: border-color .2s, background .2s;
+  }
+  .usecase-item:hover { border-color: var(--brd2); background: var(--bg3); }
+  .usecase-icon {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    border: 1px solid var(--brd);
+  }
+  .usecase-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+  .usecase-desc { font-size: 13px; color: var(--txt2); line-height: 1.6; }
+
+  /* ── ACTION BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--brd2);
+    background: var(--bg3);
+    color: var(--txt2);
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+  }
+  .btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.primary:hover { opacity: 0.9; }
+  .btn-group { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+  /* ── MOBILE HAMBURGER ── */
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 14px; left: 14px;
+    z-index: 200;
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--bg2);
+    border: 1px solid var(--brd2);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+  }
+  .hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--txt);
+    border-radius: 2px;
+    transition: all .3s;
+  }
+
+  /* ── MOBILE OVERLAY ── */
+  .overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 90;
+    backdrop-filter: blur(2px);
+  }
+  .overlay.visible { display: block; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; }
+    .hamburger { display: flex; }
+    .hero { padding: 56px 24px 32px; }
+    .hero h1 { font-size: 26px; }
+    .topic-header { padding: 56px 24px 24px; }
+    .topic-body { padding: 24px; }
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── PROGRESS INDICATOR ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    z-index: 300;
+    transition: width .3s;
+    pointer-events: none;
+  }
+
+  /* ── SEARCH BAR ── */
+  .search-wrap {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--brd);
+  }
+  .search-input {
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--brd2);
+    border-radius: 8px;
+    color: var(--txt);
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--txt3); }
+
+  /* ── LANDING GRID ── */
+  .landing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 36px 48px;
+  }
+  .landing-card {
+    background: var(--bg2);
+    border: 1px solid var(--brd);
+    border-radius: 14px;
+    padding: 22px 24px;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .landing-card:hover {
+    border-color: var(--brd2);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  }
+  .landing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  .landing-card:hover::before { opacity: 1; }
+  .lc-num {
+    font-size: 11px;
+    color: var(--txt3);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px;
+  }
+  .lc-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .lc-desc { font-size: 12px; color: var(--txt2); line-height: 1.6; margin-bottom: 14px; }
+  .lc-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .lc-chip {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+    border: 1px solid;
+    letter-spacing: .03em;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    margin-top: 60px;
+    padding: 24px 48px;
+    border-top: 1px solid var(--brd);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--txt3);
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<!-- Mobile hamburger -->
+<div class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+  <span></span><span></span><span></span>
+</div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">DSA Encyclopedia</div>
+    <div class="brand-sub">Data Structures & Algorithms</div>
+  </div>
+
+  <div class="search-wrap">
+    <input class="search-input" type="text" placeholder="Search topics..." id="search-input" oninput="filterNav(this.value)">
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Topics</div>
+    <div class="nav-item active" onclick="showTopic('landing',this)" data-topic="landing">
+      <span class="nav-num">00</span> Overview
+    </div>
+    <div class="nav-item" onclick="showTopic('arrays',this)" data-topic="arrays">
+      <span class="nav-num">01</span> Arrays
+      <span class="nav-badge" style="background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.3)">Core</span>
+    </div>
+    <div class="nav-item" onclick="showTopic('strings',this)" data-topic="strings">
+      <span class="nav-num">02</span> Strings
+    </div>
+    <div class="nav-item" onclick="showTopic('recursion',this)" data-topic="recursion">
+      <span class="nav-num">03</span> Recursion
+    </div>
+    <div class="nav-item" onclick="showTopic('sorting',this)" data-topic="sorting">
+      <span class="nav-num">04</span> Sorting
+    </div>
+    <div class="nav-item" onclick="showTopic('linkedlist',this)" data-topic="linkedlist">
+      <span class="nav-num">05</span> Linked List
+    </div>
+    <div class="nav-item" onclick="showTopic('stackqueue',this)" data-topic="stackqueue">
+      <span class="nav-num">06</span> Stack &amp; Queue
+    </div>
+    <div class="nav-item" onclick="showTopic('hashing',this)" data-topic="hashing">
+      <span class="nav-num">07</span> Hashing
+      <span class="nav-badge" style="background:rgba(74,108,247,.15);color:#93c5fd;border:1px solid rgba(74,108,247,.3)">O(1)</span>
+    </div>
+    <div class="nav-item" onclick="showTopic('trees',this)" data-topic="trees">
+      <span class="nav-num">08</span> Trees
+    </div>
+    <div class="nav-item" onclick="showTopic('graphs',this)" data-topic="graphs">
+      <span class="nav-num">09</span> Graphs
+    </div>
+    <div class="nav-item" onclick="showTopic('dp',this)" data-topic="dp">
+      <span class="nav-num">10</span> Dynamic Prog.
+      <span class="nav-badge" style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3)">Hard</span>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    10 Topics &nbsp;·&nbsp; Python Code &nbsp;·&nbsp; Real Use Cases<br>
+    <a href="#" onclick="showTopic('landing',document.querySelector('.nav-item'));return false;">Back to Overview</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+<!-- ======================================================
+     LANDING / OVERVIEW
+====================================================== -->
+<div id="topic-landing" class="topic active">
+  <div class="hero">
+    <div class="hero-eyebrow">Complete Reference Guide</div>
+    <h1>Data Structures &<br><span>Algorithms</span> Encyclopedia</h1>
+    <p class="hero-desc">A comprehensive, hands-on guide covering every essential DSA topic — with concept explanations, Python implementations, complexity analysis, and real-world production use cases.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">10</div><div class="lbl">Core Topics</div></div>
+      <div class="hero-stat"><div class="num">40+</div><div class="lbl">Algorithms</div></div>
+      <div class="hero-stat"><div class="num">30+</div><div class="lbl">Code Examples</div></div>
+      <div class="hero-stat"><div class="num">35+</div><div class="lbl">Use Cases</div></div>
+    </div>
+  </div>
+
+  <div class="landing-grid">
+    <div class="landing-card" onclick="showTopic('arrays',document.querySelectorAll('.nav-item')[1])" style="--accent-c:#10B981">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#10B981,#34d399);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">01 — Foundation</div>
+      <div class="lc-title">Arrays</div>
+      <div class="lc-desc">Contiguous memory, two pointers, sliding window, binary search, Kadane's algorithm, prefix sums.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#34d399;border-color:rgba(16,185,129,.3)">O(1) access</span>
+        <span class="lc-chip" style="color:#34d399;border-color:rgba(16,185,129,.3)">Binary Search</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('strings',document.querySelectorAll('.nav-item')[2])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4A6CF7,#7C3AED);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">02 — Pattern Matching</div>
+      <div class="lc-title">Strings</div>
+      <div class="lc-desc">Sliding window, KMP, Rabin-Karp hashing, Manacher's palindrome, anagram detection.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#93c5fd;border-color:rgba(74,108,247,.3)">KMP O(n+m)</span>
+        <span class="lc-chip" style="color:#93c5fd;border-color:rgba(74,108,247,.3)">Sliding Window</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('recursion',document.querySelectorAll('.nav-item')[3])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7C3AED,#EC4899);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">03 — Mind Bender</div>
+      <div class="lc-title">Recursion</div>
+      <div class="lc-desc">Base case, call stack, memoization, backtracking, N-Queens, divide and conquer.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#d8b4fe;border-color:rgba(124,58,237,.3)">Backtracking</span>
+        <span class="lc-chip" style="color:#d8b4fe;border-color:rgba(124,58,237,.3)">D&amp;C</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('sorting',document.querySelectorAll('.nav-item')[4])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#F59E0B,#EF4444);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">04 — Fundamental</div>
+      <div class="lc-title">Sorting + Searching</div>
+      <div class="lc-desc">QuickSort, MergeSort, HeapSort, CountingSort, binary search on answer.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#fbbf24;border-color:rgba(245,158,11,.3)">Timsort</span>
+        <span class="lc-chip" style="color:#fbbf24;border-color:rgba(245,158,11,.3)">O(n log n)</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('linkedlist',document.querySelectorAll('.nav-item')[5])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#14B8A6,#10B981);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">05 — Pointer Magic</div>
+      <div class="lc-title">Linked List</div>
+      <div class="lc-desc">Singly/doubly linked, Floyd's cycle detection, reversal, merge sorted lists, LRU Cache.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#5eead4;border-color:rgba(20,184,166,.3)">O(1) insert</span>
+        <span class="lc-chip" style="color:#5eead4;border-color:rgba(20,184,166,.3)">Floyd's</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('stackqueue',document.querySelectorAll('.nav-item')[6])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#EF4444,#F59E0B);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">06 — Linear ADTs</div>
+      <div class="lc-title">Stack &amp; Queue</div>
+      <div class="lc-desc">LIFO/FIFO, monotonic stack, valid parentheses, next greater element, min stack, BFS.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#fca5a5;border-color:rgba(239,68,68,.3)">Monotonic</span>
+        <span class="lc-chip" style="color:#fca5a5;border-color:rgba(239,68,68,.3)">O(1) ops</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('hashing',document.querySelectorAll('.nav-item')[7])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#10B981,#4A6CF7);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">07 — O(1) Magic</div>
+      <div class="lc-title">Hashing</div>
+      <div class="lc-desc">Hash functions, collision handling, two-sum, group anagrams, consistent hashing.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#6ee7b7;border-color:rgba(16,185,129,.3)">O(1) avg</span>
+        <span class="lc-chip" style="color:#6ee7b7;border-color:rgba(16,185,129,.3)">Distributed</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('trees',document.querySelectorAll('.nav-item')[8])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7C3AED,#4A6CF7);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">08 — Hierarchical</div>
+      <div class="lc-title">Trees</div>
+      <div class="lc-desc">BST, AVL, Heap, Trie, Segment Tree, traversals, LCA, level order BFS.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#d8b4fe;border-color:rgba(124,58,237,.3)">O(log n)</span>
+        <span class="lc-chip" style="color:#d8b4fe;border-color:rgba(124,58,237,.3)">Segment Tree</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('graphs',document.querySelectorAll('.nav-item')[9])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#EC4899,#7C3AED);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">09 — Interconnected</div>
+      <div class="lc-title">Graphs</div>
+      <div class="lc-desc">BFS, DFS, Dijkstra, topological sort, Union-Find, Prim's, Kruskal's MST.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#f9a8d4;border-color:rgba(236,72,153,.3)">Dijkstra</span>
+        <span class="lc-chip" style="color:#f9a8d4;border-color:rgba(236,72,153,.3)">Topo Sort</span>
+      </div>
+    </div>
+
+    <div class="landing-card" onclick="showTopic('dp',document.querySelectorAll('.nav-item')[10])">
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#EF4444,#7C3AED);border-radius:14px 14px 0 0"></div>
+      <div class="lc-num">10 — Most Powerful</div>
+      <div class="lc-title">Dynamic Programming</div>
+      <div class="lc-desc">Memoization, tabulation, knapsack, LCS, edit distance, coin change, LIS.</div>
+      <div class="lc-meta">
+        <span class="lc-chip" style="color:#fca5a5;border-color:rgba(239,68,68,.3)">Hard</span>
+        <span class="lc-chip" style="color:#fca5a5;border-color:rgba(239,68,68,.3)">Optimal Substructure</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>DSA Encyclopedia &mdash; Python Implementations &amp; Real-World Use Cases</span>
+    <span>Click any topic to begin →</span>
+  </div>
+</div>
+
+<!-- ======================================================
+     01 — ARRAYS
+====================================================== -->
+<div id="topic-arrays" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#34d399;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08)">★ Foundation</div>
+    <div class="topic-title">Arrays</div>
+    <div class="topic-subtitle">Contiguous memory blocks storing same-type elements. The backbone of nearly every algorithm — master this and everything else follows. Enables O(1) index access and cache-friendly iteration.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'arr-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'arr-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'arr-usecases')">Use Cases</div>
+    </div>
+    <div id="arr-concept" class="tab-content active">
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Memory Layout</h4><p>Elements at contiguous addresses. arr[i] = base_addr + i × element_size. Direct index access = O(1) regardless of array size.</p></div>
+        <div class="concept-card"><h4>Static vs Dynamic</h4><p>Static: fixed size at compile time. Dynamic (Python list): doubles capacity when full — amortized O(1) append via doubling strategy.</p></div>
+        <div class="concept-card"><h4>Two Pointer Technique</h4><p>Left + right pointers moving toward each other. Solves sorted array problems in O(n) with O(1) space. Essential pattern for interviews.</p></div>
+        <div class="concept-card"><h4>Sliding Window</h4><p>Expand right, shrink left to maintain a valid window. Solves subarray/substring problems in O(n). Avoids O(n²) nested loops.</p></div>
+      </div>
+      <div class="section-title">Live Demo — Binary Search</div>
+      <div class="viz-container">
+        <div class="viz-caption">Array: [2, 5, 8, 11, 15, 19, 23, 27, 31, 35] — finding target = 23</div>
+        <div class="arr-viz" id="bs-arr"></div>
+        <div class="viz-label" id="bs-msg">Click "Run Binary Search" to animate the search</div>
+        <div class="btn-group">
+          <button class="btn primary" onclick="runBinarySearch()">▶ Run Binary Search (target: 23)</button>
+          <button class="btn" onclick="resetBSArr()">↺ Reset</button>
+        </div>
+      </div>
+      <div class="section-title">Complexity</div>
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr>
+          <tr><td>Access by index</td><td class="c-green">O(1)</td><td class="c-green">O(1)</td><td>Direct address calculation</td></tr>
+          <tr><td>Search (unsorted)</td><td class="c-amber">O(n)</td><td class="c-amber">O(n)</td><td>Linear scan</td></tr>
+          <tr><td>Binary Search (sorted)</td><td class="c-green">O(log n)</td><td class="c-green">O(log n)</td><td>Halves search space</td></tr>
+          <tr><td>Insert at end</td><td class="c-green">O(1)*</td><td class="c-amber">O(n)</td><td>Amortized; O(n) on resize</td></tr>
+          <tr><td>Insert at middle</td><td class="c-amber">O(n)</td><td class="c-amber">O(n)</td><td>Shift elements right</td></tr>
+          <tr><td>Delete</td><td class="c-amber">O(n)</td><td class="c-amber">O(n)</td><td>Shift elements left</td></tr>
+        </table>
+      </div>
+      <div class="info-box blue">* Amortized O(1) for dynamic arrays — doubling strategy: occasional O(n) resize averages out to O(1) per append over n operations.</div>
+    </div>
+    <div id="arr-code" class="tab-content">
+      <div class="section-title">Two Pointer &amp; Sliding Window</div>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+<pre><span class="cm"># ── Two Sum (sorted array) — O(n) time, O(1) space ──────────────────</span>
+<span class="kw">def</span> <span class="fn">two_sum_sorted</span>(arr, target):
+    left, right = <span class="nb">0</span>, len(arr) - <span class="nb">1</span>
+    <span class="kw">while</span> left &lt; right:
+        s = arr[left] + arr[right]
+        <span class="kw">if</span> s == target:   <span class="kw">return</span> [left, right]
+        <span class="kw">elif</span> s &lt; target:  left += <span class="nb">1</span>
+        <span class="kw">else</span>:             right -= <span class="nb">1</span>
+    <span class="kw">return</span> []
+
+<span class="cm"># ── Sliding Window Maximum — O(n) using deque ──────────────────────</span>
+<span class="kw">from</span> collections <span class="kw">import</span> deque
+<span class="kw">def</span> <span class="fn">sliding_window_max</span>(nums, k):
+    dq, res = deque(), []
+    <span class="kw">for</span> i, n <span class="kw">in</span> enumerate(nums):
+        <span class="kw">while</span> dq <span class="kw">and</span> nums[dq[-<span class="nb">1</span>]] &lt; n: dq.pop()
+        dq.append(i)
+        <span class="kw">if</span> dq[<span class="nb">0</span>] == i - k:          dq.popleft()
+        <span class="kw">if</span> i >= k - <span class="nb">1</span>:              res.append(nums[dq[<span class="nb">0</span>]])
+    <span class="kw">return</span> res
+
+<span class="cm"># ── Kadane's Algorithm (Max Subarray) — O(n) ───────────────────────</span>
+<span class="kw">def</span> <span class="fn">max_subarray</span>(nums):
+    max_sum = cur = nums[<span class="nb">0</span>]
+    <span class="kw">for</span> n <span class="kw">in</span> nums[<span class="nb">1</span>:]:
+        cur = max(n, cur + n)
+        max_sum = max(max_sum, cur)
+    <span class="kw">return</span> max_sum
+
+<span class="cm"># ── Prefix Sum — range query O(1) after O(n) build ─────────────────</span>
+<span class="kw">def</span> <span class="fn">build_prefix</span>(arr):
+    prefix = [<span class="nb">0</span>] * (len(arr) + <span class="nb">1</span>)
+    <span class="kw">for</span> i, v <span class="kw">in</span> enumerate(arr):
+        prefix[i+<span class="nb">1</span>] = prefix[i] + v
+    <span class="kw">return</span> prefix
+
+<span class="kw">def</span> <span class="fn">range_sum</span>(prefix, l, r):     <span class="cm"># inclusive [l, r]</span>
+    <span class="kw">return</span> prefix[r+<span class="nb">1</span>] - prefix[l]
+
+<span class="cm"># ── Binary Search — all variants ───────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">binary_search</span>(arr, target):
+    lo, hi = <span class="nb">0</span>, len(arr) - <span class="nb">1</span>
+    <span class="kw">while</span> lo &lt;= hi:
+        mid = lo + (hi - lo) // <span class="nb">2</span>   <span class="cm"># avoids overflow</span>
+        <span class="kw">if</span>   arr[mid] == target: <span class="kw">return</span> mid
+        <span class="kw">elif</span> arr[mid] &lt; target:  lo = mid + <span class="nb">1</span>
+        <span class="kw">else</span>:                    hi = mid - <span class="nb">1</span>
+    <span class="kw">return</span> -<span class="nb">1</span>
+
+<span class="kw">def</span> <span class="fn">lower_bound</span>(arr, target):     <span class="cm"># leftmost occurrence</span>
+    lo, hi, ans = <span class="nb">0</span>, len(arr) - <span class="nb">1</span>, -<span class="nb">1</span>
+    <span class="kw">while</span> lo &lt;= hi:
+        mid = lo + (hi - lo) // <span class="nb">2</span>
+        <span class="kw">if</span> arr[mid] >= target: ans = mid; hi = mid - <span class="nb">1</span>
+        <span class="kw">else</span>: lo = mid + <span class="nb">1</span>
+    <span class="kw">return</span> ans
+
+<span class="cm"># ── Dutch National Flag (3-way partition) ──────────────────────────</span>
+<span class="kw">def</span> <span class="fn">sort_012</span>(arr):
+    lo = mid = <span class="nb">0</span>; hi = len(arr) - <span class="nb">1</span>
+    <span class="kw">while</span> mid &lt;= hi:
+        <span class="kw">if</span>   arr[mid] == <span class="nb">0</span>: arr[lo], arr[mid] = arr[mid], arr[lo]; lo += <span class="nb">1</span>; mid += <span class="nb">1</span>
+        <span class="kw">elif</span> arr[mid] == <span class="nb">1</span>: mid += <span class="nb">1</span>
+        <span class="kw">else</span>:                arr[mid], arr[hi] = arr[hi], arr[mid]; hi -= <span class="nb">1</span>
+    <span class="kw">return</span> arr</pre>
+      </div>
+    </div>
+    <div id="arr-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">🎵</div><div><div class="usecase-title">Spotify Audio Buffers</div><div class="usecase-desc">Audio streams are stored as float arrays (PCM samples). Sliding window is used for real-time equalization and beat detection. Arrays give O(1) access to any sample offset for scrubbing and seek operations.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">📈</div><div><div class="usecase-title">Stock Price Analysis &amp; Trading Platforms</div><div class="usecase-desc">Kadane's algorithm finds the best buy-sell window. Prefix sums compute cumulative returns over date ranges in O(1) after preprocessing. Used in Bloomberg terminals and quantitative trading systems.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">🖼️</div><div><div class="usecase-title">Image Processing (OpenCV, Instagram Filters)</div><div class="usecase-desc">Images are 2D pixel arrays. Convolution operations (blur, edge detection) use sliding window over pixel arrays. Used in OpenCV, Instagram filters, and medical imaging for MRI/CT scan processing.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(239,68,68,.1)">🎮</div><div><div class="usecase-title">Game Board States (Chess, Sudoku)</div><div class="usecase-desc">Chess, Sudoku, and Minesweeper all use 2D arrays. Two-pointer techniques find valid moves. Prefix sums calculate region scores. Arrays power the entire game engine state machine.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     02 — STRINGS
+====================================================== -->
+<div id="topic-strings" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#93c5fd;border-color:rgba(74,108,247,.3);background:rgba(74,108,247,.08)">Pattern Matching</div>
+    <div class="topic-title">Strings</div>
+    <div class="topic-subtitle">Immutable sequences of characters with rich algorithm space: sliding windows, KMP for linear pattern matching, Rabin-Karp rolling hashes, tries, and Manacher's O(n) palindrome detection.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'str-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'str-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'str-usecases')">Use Cases</div>
+    </div>
+    <div id="str-concept" class="tab-content active">
+      <div class="info-box blue">⚡ Strings in most languages are immutable. String concatenation in a loop is O(n²) — always use a list and ''.join() or a StringBuilder for building strings iteratively.</div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Sliding Window</h4><p>Maintain a window of characters, expand right and shrink left. Solves longest substring without repeat, min window substring in O(n).</p></div>
+        <div class="concept-card"><h4>KMP Algorithm</h4><p>Failure function (LPS array) avoids re-scanning. Pattern matching in O(n+m) vs O(n×m) naive. Used in grep, text editors, DNA sequencing.</p></div>
+        <div class="concept-card"><h4>Rabin-Karp</h4><p>Rolling hash computes substring hash in O(1). Excellent for multiple pattern search. Average O(n+m). Used in plagiarism detection and duplicate detection.</p></div>
+        <div class="concept-card"><h4>Manacher's Algorithm</h4><p>Finds all palindromic substrings in O(n) by reusing previously computed palindrome centers. Transforms odd/even lengths into a unified problem.</p></div>
+      </div>
+      <div class="section-title">Complexity Comparison</div>
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Algorithm</th><th>Time</th><th>Space</th><th>Best For</th></tr>
+          <tr><td>Naive pattern match</td><td class="c-red">O(n·m)</td><td class="c-green">O(1)</td><td>Tiny strings only</td></tr>
+          <tr><td>KMP</td><td class="c-green">O(n+m)</td><td class="c-amber">O(m)</td><td>Single pattern search</td></tr>
+          <tr><td>Rabin-Karp</td><td class="c-green">O(n+m)*</td><td class="c-green">O(1)</td><td>Multiple pattern search</td></tr>
+          <tr><td>Sliding Window</td><td class="c-green">O(n)</td><td class="c-amber">O(k)</td><td>Substring optimization</td></tr>
+          <tr><td>Manacher's</td><td class="c-green">O(n)</td><td class="c-amber">O(n)</td><td>All palindromes</td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="str-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cm"># ── Longest Substring Without Repeating — O(n) ─────────────────────</span>
+<span class="kw">def</span> <span class="fn">length_of_longest</span>(s):
+    seen, start, ans = {}, <span class="nb">0</span>, <span class="nb">0</span>
+    <span class="kw">for</span> i, c <span class="kw">in</span> enumerate(s):
+        <span class="kw">if</span> c <span class="kw">in</span> seen <span class="kw">and</span> seen[c] >= start:
+            start = seen[c] + <span class="nb">1</span>
+        seen[c] = i
+        ans = max(ans, i - start + <span class="nb">1</span>)
+    <span class="kw">return</span> ans
+
+<span class="cm"># ── KMP Pattern Search — O(n+m) ────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">kmp_search</span>(text, pattern):
+    <span class="kw">def</span> <span class="fn">build_lps</span>(p):
+        lps = [<span class="nb">0</span>] * len(p); length = <span class="nb">0</span>; i = <span class="nb">1</span>
+        <span class="kw">while</span> i &lt; len(p):
+            <span class="kw">if</span> p[i] == p[length]:
+                length += <span class="nb">1</span>; lps[i] = length; i += <span class="nb">1</span>
+            <span class="kw">elif</span> length: length = lps[length-<span class="nb">1</span>]
+            <span class="kw">else</span>: lps[i] = <span class="nb">0</span>; i += <span class="nb">1</span>
+        <span class="kw">return</span> lps
+    lps = build_lps(pattern); i = j = <span class="nb">0</span>; matches = []
+    <span class="kw">while</span> i &lt; len(text):
+        <span class="kw">if</span> text[i] == pattern[j]: i += <span class="nb">1</span>; j += <span class="nb">1</span>
+        <span class="kw">if</span> j == len(pattern): matches.append(i - j); j = lps[j-<span class="nb">1</span>]
+        <span class="kw">elif</span> i &lt; len(text) <span class="kw">and</span> text[i] != pattern[j]:
+            <span class="kw">if</span> j: j = lps[j-<span class="nb">1</span>]
+            <span class="kw">else</span>: i += <span class="nb">1</span>
+    <span class="kw">return</span> matches
+
+<span class="cm"># ── Minimum Window Substring — O(n) ────────────────────────────────</span>
+<span class="kw">from</span> collections <span class="kw">import</span> Counter
+<span class="kw">def</span> <span class="fn">min_window</span>(s, t):
+    need = Counter(t); have = {}
+    formed = required = len(need)
+    l, ans = <span class="nb">0</span>, (<span class="nb">float</span>(<span class="str">'inf'</span>), <span class="nb">0</span>, <span class="nb">0</span>)
+    <span class="kw">for</span> r, c <span class="kw">in</span> enumerate(s):
+        have[c] = have.get(c, <span class="nb">0</span>) + <span class="nb">1</span>
+        <span class="kw">if</span> c <span class="kw">in</span> need <span class="kw">and</span> have[c] == need[c]: formed -= <span class="nb">1</span>
+        <span class="kw">while</span> formed == <span class="nb">0</span>:
+            <span class="kw">if</span> r - l + <span class="nb">1</span> &lt; ans[<span class="nb">0</span>]: ans = (r - l + <span class="nb">1</span>, l, r)
+            lc = s[l]; have[lc] -= <span class="nb">1</span>; l += <span class="nb">1</span>
+            <span class="kw">if</span> lc <span class="kw">in</span> need <span class="kw">and</span> have[lc] &lt; need[lc]: formed += <span class="nb">1</span>
+    <span class="kw">return</span> s[ans[<span class="nb">1</span>]:ans[<span class="nb">2</span>]+<span class="nb">1</span>] <span class="kw">if</span> ans[<span class="nb">0</span>] != <span class="nb">float</span>(<span class="str">'inf'</span>) <span class="kw">else</span> <span class="str">""</span>
+
+<span class="cm"># ── Longest Palindromic Substring — O(n) Manacher's ────────────────</span>
+<span class="kw">def</span> <span class="fn">longest_palindrome</span>(s):
+    t = <span class="str">'#'</span> + <span class="str">'#'</span>.join(s) + <span class="str">'#'</span>    <span class="cm"># unify odd/even</span>
+    n = len(t); p = [<span class="nb">0</span>] * n; c = r = <span class="nb">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(n):
+        m = <span class="nb">2</span>*c - i
+        <span class="kw">if</span> i &lt; r: p[i] = min(r - i, p[m])
+        <span class="kw">while</span> i+p[i]+<span class="nb">1</span> &lt; n <span class="kw">and</span> i-p[i]-<span class="nb">1</span> >= <span class="nb">0</span> <span class="kw">and</span> t[i+p[i]+<span class="nb">1</span>] == t[i-p[i]-<span class="nb">1</span>]: p[i] += <span class="nb">1</span>
+        <span class="kw">if</span> i + p[i] > r: c, r = i, i + p[i]
+    best = max(range(n), key=<span class="kw">lambda</span> x: p[x])
+    start = (best - p[best]) // <span class="nb">2</span>
+    <span class="kw">return</span> s[start:start + p[best]]</pre>
+      </div>
+    </div>
+    <div id="str-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">🔍</div><div><div class="usecase-title">Search Engines (Google, Elasticsearch)</div><div class="usecase-desc">KMP and Aho-Corasick multi-pattern matching power full-text search. Rabin-Karp enables near-duplicate detection across billions of documents. Elasticsearch's inverted index uses string tokenization as its core operation.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">🧬</div><div><div class="usecase-title">DNA Sequence Matching (NCBI BLAST)</div><div class="usecase-desc">Genome sequences are strings over {A,T,G,C}. Suffix arrays and KMP find gene sequences, mutations, and protein coding regions in chromosome data. BLAST uses a form of Rabin-Karp for initial seed finding.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(239,68,68,.1)">🛡️</div><div><div class="usecase-title">Antivirus Signature Detection (ClamAV)</div><div class="usecase-desc">Virus signatures are byte patterns. Aho-Corasick simultaneously searches for thousands of malware signatures in a single O(n) pass over file bytes, making it 1000x faster than sequential search.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">📝</div><div><div class="usecase-title">Code Editors (VSCode, Vim)</div><div class="usecase-desc">Find-and-replace uses Boyer-Moore or KMP. Auto-complete uses trie structures over the symbol table. Syntax highlighting uses a sliding window over token streams to classify code regions.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     03 — RECURSION
+====================================================== -->
+<div id="topic-recursion" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#d8b4fe;border-color:rgba(124,58,237,.3);background:rgba(124,58,237,.08)">Mind Bender</div>
+    <div class="topic-title">Recursion</div>
+    <div class="topic-subtitle">A function that calls itself with a smaller input. Every recursive problem needs a base case (termination) and a recursive case that converges toward it. Powers divide-and-conquer, backtracking, and all tree/graph traversal.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'rec-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'rec-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'rec-usecases')">Use Cases</div>
+    </div>
+    <div id="rec-concept" class="tab-content active">
+      <div class="info-box amber">⚠️ Every recursive call uses stack space. Python's default limit is 1000 frames. For deep recursion, use iterative + explicit stack or sys.setrecursionlimit() carefully. Tail call optimization is NOT supported in Python.</div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Call Stack Model</h4><p>Each call pushes a frame onto the stack. Returns pop the frame. For fib(5): 15 calls, max depth 5. Stack overflow = recursion too deep.</p></div>
+        <div class="concept-card"><h4>Memoization (Top-Down DP)</h4><p>Cache results of subproblems with @lru_cache. Converts exponential O(2ⁿ) recursion to O(n). Each unique subproblem computed exactly once.</p></div>
+        <div class="concept-card"><h4>Backtracking Pattern</h4><p>Choose → Recurse → Undo. Try a choice, go deeper, undo if it fails. Explores all valid paths. Prune invalid branches early for performance.</p></div>
+        <div class="concept-card"><h4>Divide &amp; Conquer</h4><p>Split into independent subproblems, solve recursively, combine results. Merge Sort, Quick Sort follow T(n) = 2T(n/2) + O(n) → O(n log n).</p></div>
+      </div>
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Pattern</th><th>Time</th><th>Space</th><th>Examples</th></tr>
+          <tr><td>Naive recursion</td><td class="c-red">O(2ⁿ)</td><td class="c-amber">O(n)</td><td>Fibonacci naive</td></tr>
+          <tr><td>Memoized recursion</td><td class="c-green">O(n)</td><td class="c-amber">O(n)</td><td>Fibonacci with cache</td></tr>
+          <tr><td>Backtracking</td><td class="c-amber">O(n!)</td><td class="c-amber">O(n)</td><td>Permutations, N-Queens</td></tr>
+          <tr><td>Divide &amp; Conquer</td><td class="c-green">O(n log n)</td><td class="c-green">O(log n)</td><td>Merge Sort, Quick Sort</td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="rec-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="kw">from</span> functools <span class="kw">import</span> lru_cache
+
+<span class="cm"># ── Fibonacci: naive vs memoized ────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">fib_naive</span>(n):                    <span class="cm"># O(2^n) — DO NOT USE for large n</span>
+    <span class="kw">if</span> n &lt;= <span class="nb">1</span>: <span class="kw">return</span> n
+    <span class="kw">return</span> fib_naive(n-<span class="nb">1</span>) + fib_naive(n-<span class="nb">2</span>)
+
+@lru_cache(maxsize=<span class="nb">None</span>)
+<span class="kw">def</span> <span class="fn">fib_memo</span>(n):                     <span class="cm"># O(n) — each n computed exactly once</span>
+    <span class="kw">if</span> n &lt;= <span class="nb">1</span>: <span class="kw">return</span> n
+    <span class="kw">return</span> fib_memo(n-<span class="nb">1</span>) + fib_memo(n-<span class="nb">2</span>)
+
+<span class="cm"># ── Backtracking Template — All Permutations ────────────────────────</span>
+<span class="kw">def</span> <span class="fn">permutations</span>(nums):
+    res = []
+    <span class="kw">def</span> <span class="fn">backtrack</span>(path, used):
+        <span class="kw">if</span> len(path) == len(nums):
+            res.append(path[:]); <span class="kw">return</span>
+        <span class="kw">for</span> i, n <span class="kw">in</span> enumerate(nums):
+            <span class="kw">if</span> used[i]: <span class="kw">continue</span>
+            used[i] = <span class="nb">True</span>; path.append(n)
+            backtrack(path, used)
+            path.pop(); used[i] = <span class="nb">False</span>  <span class="cm"># UNDO — key step</span>
+    backtrack([], [<span class="nb">False</span>] * len(nums))
+    <span class="kw">return</span> res
+
+<span class="cm"># ── N-Queens — classic backtracking ────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">n_queens</span>(n):
+    res, cols = [], set()
+    diag1, diag2 = set(), set()
+    <span class="kw">def</span> <span class="fn">bt</span>(row, board):
+        <span class="kw">if</span> row == n: res.append(board[:]); <span class="kw">return</span>
+        <span class="kw">for</span> col <span class="kw">in</span> range(n):
+            <span class="kw">if</span> col <span class="kw">in</span> cols <span class="kw">or</span> row-col <span class="kw">in</span> diag1 <span class="kw">or</span> row+col <span class="kw">in</span> diag2: <span class="kw">continue</span>
+            cols.add(col); diag1.add(row-col); diag2.add(row+col)
+            board.append(<span class="str">'.'</span>*col + <span class="str">'Q'</span> + <span class="str">'.'</span>*(n-col-<span class="nb">1</span>))
+            bt(row+<span class="nb">1</span>, board)
+            board.pop(); cols.discard(col); diag1.discard(row-col); diag2.discard(row+col)
+    bt(<span class="nb">0</span>, [])
+    <span class="kw">return</span> res
+
+<span class="cm"># ── Merge Sort — Divide &amp; Conquer O(n log n) ────────────────────────</span>
+<span class="kw">def</span> <span class="fn">merge_sort</span>(arr):
+    <span class="kw">if</span> len(arr) &lt;= <span class="nb">1</span>: <span class="kw">return</span> arr
+    mid = len(arr) // <span class="nb">2</span>
+    L = merge_sort(arr[:mid]); R = merge_sort(arr[mid:])
+    res = []; i = j = <span class="nb">0</span>
+    <span class="kw">while</span> i &lt; len(L) <span class="kw">and</span> j &lt; len(R):
+        <span class="kw">if</span> L[i] &lt;= R[j]: res.append(L[i]); i += <span class="nb">1</span>
+        <span class="kw">else</span>:            res.append(R[j]); j += <span class="nb">1</span>
+    <span class="kw">return</span> res + L[i:] + R[j:]</pre>
+      </div>
+    </div>
+    <div id="rec-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(124,58,237,.1)">📁</div><div><div class="usecase-title">File System Traversal (ls -R, find, grep -r)</div><div class="usecase-desc">Every shell command that recursively traverses directories uses recursive DFS. Each subdirectory is a subproblem. Base case: a directory with no subdirectories. Python's os.walk() uses this exact pattern.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">🧩</div><div><div class="usecase-title">Puzzle Solvers (Sudoku, Constraint Satisfaction)</div><div class="usecase-desc">Backtracking tries each digit (1-9), recurses on the next empty cell, undoes on failure. A well-implemented Sudoku solver solves human puzzles in microseconds by pruning invalid branches early.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">⚙️</div><div><div class="usecase-title">Compiler &amp; Parser Design (AST)</div><div class="usecase-desc">Recursive descent parsers process nested expressions naturally. JSON/XML parsers use recursion for nested objects/arrays. Abstract Syntax Trees (ASTs) are inherently recursive — each node can contain subtrees.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     04 — SORTING
+====================================================== -->
+<div id="topic-sorting" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#fbbf24;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08)">Fundamental</div>
+    <div class="topic-title">Sorting + Searching</div>
+    <div class="topic-subtitle">Sorting is the prerequisite to most efficient searching. Choose based on: data size, value range, stability requirement, memory constraints, and whether data is nearly sorted.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'sort-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'sort-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'sort-usecases')">Use Cases</div>
+    </div>
+    <div id="sort-concept" class="tab-content active">
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th><th>Stable</th></tr>
+          <tr><td>Bubble Sort</td><td class="c-green">O(n)</td><td class="c-red">O(n²)</td><td class="c-red">O(n²)</td><td class="c-green">O(1)</td><td>✅</td></tr>
+          <tr><td>Selection Sort</td><td class="c-red">O(n²)</td><td class="c-red">O(n²)</td><td class="c-red">O(n²)</td><td class="c-green">O(1)</td><td>❌</td></tr>
+          <tr><td>Insertion Sort</td><td class="c-green">O(n)</td><td class="c-red">O(n²)</td><td class="c-red">O(n²)</td><td class="c-green">O(1)</td><td>✅</td></tr>
+          <tr><td>Merge Sort</td><td class="c-green">O(n log n)</td><td class="c-green">O(n log n)</td><td class="c-green">O(n log n)</td><td class="c-amber">O(n)</td><td>✅</td></tr>
+          <tr><td>Quick Sort</td><td class="c-green">O(n log n)</td><td class="c-green">O(n log n)</td><td class="c-red">O(n²)*</td><td class="c-green">O(log n)</td><td>❌</td></tr>
+          <tr><td>Heap Sort</td><td class="c-green">O(n log n)</td><td class="c-green">O(n log n)</td><td class="c-green">O(n log n)</td><td class="c-green">O(1)</td><td>❌</td></tr>
+          <tr><td>Counting Sort</td><td class="c-green">O(n+k)</td><td class="c-green">O(n+k)</td><td class="c-green">O(n+k)</td><td class="c-amber">O(k)</td><td>✅</td></tr>
+          <tr><td>Timsort (Python)</td><td class="c-green">O(n)</td><td class="c-green">O(n log n)</td><td class="c-green">O(n log n)</td><td class="c-amber">O(n)</td><td>✅</td></tr>
+        </table>
+      </div>
+      <div class="info-box green">✅ Python's sorted() / .sort() uses Timsort — a hybrid merge+insertion sort. O(n) on nearly-sorted data (common in real-world datasets), O(n log n) worst case, and stable.</div>
+    </div>
+    <div id="sort-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cm"># ── Quick Sort — O(n log n) average, O(n²) worst ───────────────────</span>
+<span class="kw">def</span> <span class="fn">quick_sort</span>(arr, lo=<span class="nb">0</span>, hi=<span class="nb">None</span>):
+    <span class="kw">if</span> hi <span class="kw">is</span> <span class="nb">None</span>: hi = len(arr) - <span class="nb">1</span>
+    <span class="kw">if</span> lo &lt; hi:
+        p = _partition(arr, lo, hi)
+        quick_sort(arr, lo, p-<span class="nb">1</span>)
+        quick_sort(arr, p+<span class="nb">1</span>, hi)
+
+<span class="kw">def</span> <span class="fn">_partition</span>(arr, lo, hi):
+    pivot = arr[hi]; i = lo - <span class="nb">1</span>
+    <span class="kw">for</span> j <span class="kw">in</span> range(lo, hi):
+        <span class="kw">if</span> arr[j] &lt;= pivot:
+            i += <span class="nb">1</span>; arr[i], arr[j] = arr[j], arr[i]
+    arr[i+<span class="nb">1</span>], arr[hi] = arr[hi], arr[i+<span class="nb">1</span>]
+    <span class="kw">return</span> i + <span class="nb">1</span>
+
+<span class="cm"># ── Heap Sort — O(n log n) guaranteed, in-place ─────────────────────</span>
+<span class="kw">def</span> <span class="fn">heap_sort</span>(arr):
+    n = len(arr)
+    <span class="kw">for</span> i <span class="kw">in</span> range(n//<span class="nb">2</span>-<span class="nb">1</span>, -<span class="nb">1</span>, -<span class="nb">1</span>):  <span class="cm"># build max-heap</span>
+        _heapify(arr, n, i)
+    <span class="kw">for</span> i <span class="kw">in</span> range(n-<span class="nb">1</span>, <span class="nb">0</span>, -<span class="nb">1</span>):
+        arr[<span class="nb">0</span>], arr[i] = arr[i], arr[<span class="nb">0</span>]   <span class="cm"># max to end</span>
+        _heapify(arr, i, <span class="nb">0</span>)
+
+<span class="kw">def</span> <span class="fn">_heapify</span>(arr, n, i):
+    largest = i; l, r = <span class="nb">2</span>*i+<span class="nb">1</span>, <span class="nb">2</span>*i+<span class="nb">2</span>
+    <span class="kw">if</span> l &lt; n <span class="kw">and</span> arr[l] > arr[largest]: largest = l
+    <span class="kw">if</span> r &lt; n <span class="kw">and</span> arr[r] > arr[largest]: largest = r
+    <span class="kw">if</span> largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        _heapify(arr, n, largest)
+
+<span class="cm"># ── Counting Sort — O(n+k), integers only ──────────────────────────</span>
+<span class="kw">def</span> <span class="fn">counting_sort</span>(arr):
+    k = max(arr); count = [<span class="nb">0</span>] * (k + <span class="nb">1</span>)
+    <span class="kw">for</span> x <span class="kw">in</span> arr: count[x] += <span class="nb">1</span>
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nb">1</span>, k+<span class="nb">1</span>): count[i] += count[i-<span class="nb">1</span>]  <span class="cm"># prefix sum</span>
+    out = [<span class="nb">0</span>] * len(arr)
+    <span class="kw">for</span> x <span class="kw">in</span> reversed(arr):
+        count[x] -= <span class="nb">1</span>; out[count[x]] = x
+    <span class="kw">return</span> out
+
+<span class="cm"># ── Binary Search on Answer — O(n log(max-min)) ────────────────────</span>
+<span class="cm"># Problem: split n books into m students, minimize max pages per student</span>
+<span class="kw">def</span> <span class="fn">book_allocation</span>(books, m):
+    <span class="kw">def</span> <span class="fn">feasible</span>(max_pages):
+        students = pages = <span class="nb">0</span>
+        <span class="kw">for</span> b <span class="kw">in</span> books:
+            <span class="kw">if</span> pages + b > max_pages: students += <span class="nb">1</span>; pages = <span class="nb">0</span>
+            pages += b
+        <span class="kw">return</span> students + <span class="nb">1</span> &lt;= m
+    lo, hi = max(books), sum(books); ans = hi
+    <span class="kw">while</span> lo &lt;= hi:
+        mid = (lo + hi) // <span class="nb">2</span>
+        <span class="kw">if</span> feasible(mid): ans = mid; hi = mid - <span class="nb">1</span>
+        <span class="kw">else</span>: lo = mid + <span class="nb">1</span>
+    <span class="kw">return</span> ans</pre>
+      </div>
+    </div>
+    <div id="sort-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">🛒</div><div><div class="usecase-title">E-commerce Product Ranking (Amazon)</div><div class="usecase-desc">Amazon sorts millions of products by price, rating, and relevance simultaneously. Multi-key stable sort preserves tie-ordering. Timsort excels on partially-sorted data (products re-sorted after small price changes).</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">🗄️</div><div><div class="usecase-title">Database Query Optimization (PostgreSQL)</div><div class="usecase-desc">PostgreSQL uses external merge sort for ORDER BY on large datasets, and counting sort for small integer ranges. B-Tree indexes keep data pre-sorted for O(log n) binary search on every SELECT query.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">📦</div><div><div class="usecase-title">Package Delivery Routing (FedEx, UPS)</div><div class="usecase-desc">Sorting delivery stops by zone/street reduces travel distance. Binary search on answer (minimize max distance/time) finds optimal driver assignments — exactly the book-allocation pattern above.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     05 — LINKED LIST
+====================================================== -->
+<div id="topic-linkedlist" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#5eead4;border-color:rgba(20,184,166,.3);background:rgba(20,184,166,.08)">Pointer Magic</div>
+    <div class="topic-title">Linked List</div>
+    <div class="topic-subtitle">Nodes connected via pointers. O(1) insert/delete anywhere given a pointer, but O(n) random access. Foundation for stacks, queues, LRU caches, and real-world OS memory allocators.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'ll-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'ll-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'ll-usecases')">Use Cases</div>
+    </div>
+    <div id="ll-concept" class="tab-content active">
+      <div class="section-title">Singly Linked List</div>
+      <div class="viz-container">
+        <div class="viz-caption">Head → 1 → 3 → 7 → 12 → 20 → null</div>
+        <div class="ll-viz">
+          <div class="ll-node"><div class="ll-box"><div class="ll-val">1</div><div class="ll-ptr">next→</div></div><div class="ll-arrow">→</div></div>
+          <div class="ll-node"><div class="ll-box"><div class="ll-val">3</div><div class="ll-ptr">next→</div></div><div class="ll-arrow">→</div></div>
+          <div class="ll-node"><div class="ll-box"><div class="ll-val">7</div><div class="ll-ptr">next→</div></div><div class="ll-arrow">→</div></div>
+          <div class="ll-node"><div class="ll-box"><div class="ll-val">12</div><div class="ll-ptr">next→</div></div><div class="ll-arrow">→</div></div>
+          <div class="ll-node"><div class="ll-box"><div class="ll-val">20</div><div class="ll-ptr">next→</div></div><div class="ll-arrow">→</div></div>
+          <div class="ll-null">null</div>
+        </div>
+      </div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Floyd's Cycle Detection</h4><p>Slow pointer moves 1 step, fast moves 2. If they meet, cycle exists. O(n) time, O(1) space. Mathematical proof also finds the cycle entry point.</p></div>
+        <div class="concept-card"><h4>Two Pointer Tricks</h4><p>Find middle: slow+fast together. kth from end: advance lead k steps first, then move both. Merge sorted lists: compare heads, advance the smaller.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Operation</th><th>Array</th><th>Linked List</th><th>Notes</th></tr>
+          <tr><td>Access by index</td><td class="c-green">O(1)</td><td class="c-red">O(n)</td><td>LL must traverse from head</td></tr>
+          <tr><td>Search</td><td class="c-amber">O(n)</td><td class="c-amber">O(n)</td><td>Both linear scan</td></tr>
+          <tr><td>Insert at head</td><td class="c-red">O(n)</td><td class="c-green">O(1)</td><td>LL wins — just update pointer</td></tr>
+          <tr><td>Insert given pointer</td><td class="c-red">O(n)</td><td class="c-green">O(1)</td><td>LL's key advantage</td></tr>
+          <tr><td>Delete given pointer</td><td class="c-red">O(n)</td><td class="c-green">O(1)</td><td>With doubly-linked list</td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="ll-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="kw">class</span> <span class="cls">ListNode</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, val=<span class="nb">0</span>, nxt=<span class="nb">None</span>):
+        self.val = val; self.next = nxt
+
+<span class="cm"># ── Reverse Linked List — O(n) time, O(1) space ─────────────────────</span>
+<span class="kw">def</span> <span class="fn">reverse</span>(head):
+    prev = <span class="nb">None</span>
+    <span class="kw">while</span> head:
+        nxt = head.next
+        head.next = prev
+        prev, head = head, nxt
+    <span class="kw">return</span> prev
+
+<span class="cm"># ── Floyd's Cycle Detection ──────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">has_cycle</span>(head):
+    slow = fast = head
+    <span class="kw">while</span> fast <span class="kw">and</span> fast.next:
+        slow = slow.next; fast = fast.next.next
+        <span class="kw">if</span> slow <span class="kw">is</span> fast: <span class="kw">return</span> <span class="nb">True</span>
+    <span class="kw">return</span> <span class="nb">False</span>
+
+<span class="cm"># ── Find cycle entry point (mathematical proof) ──────────────────────</span>
+<span class="kw">def</span> <span class="fn">cycle_start</span>(head):
+    slow = fast = head
+    <span class="kw">while</span> fast <span class="kw">and</span> fast.next:
+        slow = slow.next; fast = fast.next.next
+        <span class="kw">if</span> slow <span class="kw">is</span> fast:
+            slow2 = head
+            <span class="kw">while</span> slow <span class="kw">is</span> <span class="kw">not</span> slow2:
+                slow = slow.next; slow2 = slow2.next
+            <span class="kw">return</span> slow   <span class="cm"># entry point</span>
+    <span class="kw">return</span> <span class="nb">None</span>
+
+<span class="cm"># ── Merge Two Sorted Lists — O(n+m) ─────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">merge_sorted</span>(l1, l2):
+    dummy = cur = <span class="cls">ListNode</span>(<span class="nb">0</span>)
+    <span class="kw">while</span> l1 <span class="kw">and</span> l2:
+        <span class="kw">if</span> l1.val &lt;= l2.val: cur.next = l1; l1 = l1.next
+        <span class="kw">else</span>:               cur.next = l2; l2 = l2.next
+        cur = cur.next
+    cur.next = l1 <span class="kw">or</span> l2
+    <span class="kw">return</span> dummy.next
+
+<span class="cm"># ── LRU Cache — O(1) get/put via doubly-LL + hashmap ────────────────</span>
+<span class="kw">from</span> collections <span class="kw">import</span> OrderedDict
+<span class="kw">class</span> <span class="cls">LRUCache</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, cap):
+        self.cap = cap; self.cache = OrderedDict()
+    <span class="kw">def</span> <span class="fn">get</span>(self, key):
+        <span class="kw">if</span> key <span class="kw">not in</span> self.cache: <span class="kw">return</span> -<span class="nb">1</span>
+        self.cache.move_to_end(key)
+        <span class="kw">return</span> self.cache[key]
+    <span class="kw">def</span> <span class="fn">put</span>(self, key, val):
+        <span class="kw">if</span> key <span class="kw">in</span> self.cache: self.cache.move_to_end(key)
+        self.cache[key] = val
+        <span class="kw">if</span> len(self.cache) > self.cap:
+            self.cache.popitem(<span class="nb">False</span>)   <span class="cm"># evict LRU (first item)</span></pre>
+      </div>
+    </div>
+    <div id="ll-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(20,184,166,.1)">🖥️</div><div><div class="usecase-title">OS Memory Allocator (malloc/free)</div><div class="usecase-desc">Free memory blocks are maintained as a linked list. O(1) insertion of freed blocks into the free list. The allocator traverses this list to find a suitable block for new allocations (first-fit, best-fit strategies).</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">↩️</div><div><div class="usecase-title">Browser History &amp; Undo/Redo</div><div class="usecase-desc">Doubly linked list: each page/action links to prev and next. O(1) navigation in both directions. Chrome's tab history, VSCode undo stack, Photoshop history panel all use this exact pattern.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">⚡</div><div><div class="usecase-title">Redis LRU Cache Eviction</div><div class="usecase-desc">Redis uses a doubly linked list + hashmap for O(1) LRU cache. When memory limit is hit, the least-recently-used key (tail of the list) is evicted instantly without scanning. The same pattern powers CPU caches.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     06 — STACK & QUEUE
+====================================================== -->
+<div id="topic-stackqueue" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#fca5a5;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08)">Linear ADTs</div>
+    <div class="topic-title">Stack &amp; Queue</div>
+    <div class="topic-subtitle">Stack: LIFO — last in, first out. Queue: FIFO — first in, first out. Simple structures that power DFS, BFS, expression evaluation, scheduling systems, and the CPU call stack itself.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'sq-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'sq-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'sq-usecases')">Use Cases</div>
+    </div>
+    <div id="sq-concept" class="tab-content active">
+      <div class="section-title">Visualizer</div>
+      <div class="viz-container">
+        <div class="sv-wrap">
+          <div>
+            <div style="font-size:12px;color:var(--txt3);margin-bottom:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Stack (LIFO)</div>
+            <div class="stack-viz">
+              <div class="stack-frame top">← TOP: 30</div>
+              <div class="stack-frame">20</div>
+              <div class="stack-frame">10</div>
+            </div>
+            <div style="font-size:11px;color:var(--txt3);margin-top:8px">push / pop from top only</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--txt3);margin-bottom:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">Queue (FIFO)</div>
+            <div class="queue-viz">
+              <div class="queue-item head">HEAD: 10</div>
+              <div class="queue-item">20</div>
+              <div class="queue-item">30</div>
+              <div class="queue-item tail">TAIL: 40</div>
+            </div>
+            <div style="font-size:11px;color:var(--txt3);margin-top:8px">dequeue from head · enqueue at tail</div>
+          </div>
+        </div>
+      </div>
+      <div class="info-box blue">🔑 Monotonic Stack Pattern: maintains elements in strictly increasing/decreasing order. Solves "next greater element" and "largest rectangle in histogram" in O(n) — problems that look O(n²) at first glance.</div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Monotonic Stack</h4><p>Pop elements that violate the monotonic property when inserting. After processing, the stack contains elements in order. Solves NGE, stock span, trapping rain water.</p></div>
+        <div class="concept-card"><h4>Deque (Double-ended Queue)</h4><p>O(1) push/pop from both ends. Python's collections.deque. Powers sliding window maximum and BFS with level tracking.</p></div>
+      </div>
+    </div>
+    <div id="sq-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="cm"># ── Valid Parentheses — O(n) ─────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">is_valid</span>(s):
+    stack = []; pairs = {<span class="str">')'</span>:<span class="str">'('</span>, <span class="str">'}'</span>:<span class="str">'{'</span>, <span class="str">']'</span>:<span class="str">'['</span>}
+    <span class="kw">for</span> c <span class="kw">in</span> s:
+        <span class="kw">if</span> c <span class="kw">in</span> <span class="str">'([{'</span>: stack.append(c)
+        <span class="kw">elif</span> <span class="kw">not</span> stack <span class="kw">or</span> stack[-<span class="nb">1</span>] != pairs[c]: <span class="kw">return</span> <span class="nb">False</span>
+        <span class="kw">else</span>: stack.pop()
+    <span class="kw">return</span> <span class="kw">not</span> stack
+
+<span class="cm"># ── Next Greater Element — monotonic stack O(n) ──────────────────────</span>
+<span class="kw">def</span> <span class="fn">next_greater</span>(nums):
+    res = [-<span class="nb">1</span>] * len(nums); stack = []
+    <span class="kw">for</span> i, n <span class="kw">in</span> enumerate(nums):
+        <span class="kw">while</span> stack <span class="kw">and</span> nums[stack[-<span class="nb">1</span>]] &lt; n:
+            res[stack.pop()] = n
+        stack.append(i)
+    <span class="kw">return</span> res
+
+<span class="cm"># ── Largest Rectangle in Histogram — O(n) ───────────────────────────</span>
+<span class="kw">def</span> <span class="fn">largest_rect</span>(heights):
+    stack = []; max_area = <span class="nb">0</span>
+    heights = heights + [<span class="nb">0</span>]            <span class="cm"># sentinel forces stack drain</span>
+    <span class="kw">for</span> i, h <span class="kw">in</span> enumerate(heights):
+        start = i
+        <span class="kw">while</span> stack <span class="kw">and</span> stack[-<span class="nb">1</span>][<span class="nb">1</span>] > h:
+            idx, ht = stack.pop()
+            max_area = max(max_area, ht * (i - idx))
+            start = idx
+        stack.append((start, h))
+    <span class="kw">return</span> max_area
+
+<span class="cm"># ── Min Stack — O(1) getMin ──────────────────────────────────────────</span>
+<span class="kw">class</span> <span class="cls">MinStack</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self): self.stack = []; self.min_stack = []
+    <span class="kw">def</span> <span class="fn">push</span>(self, x):
+        self.stack.append(x)
+        m = min(x, self.min_stack[-<span class="nb">1</span>] <span class="kw">if</span> self.min_stack <span class="kw">else</span> x)
+        self.min_stack.append(m)
+    <span class="kw">def</span> <span class="fn">pop</span>(self): self.stack.pop(); self.min_stack.pop()
+    <span class="kw">def</span> <span class="fn">get_min</span>(self): <span class="kw">return</span> self.min_stack[-<span class="nb">1</span>]
+
+<span class="cm"># ── BFS using Queue ──────────────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">bfs</span>(graph, start):
+    visited, queue, order = {start}, deque([start]), []
+    <span class="kw">while</span> queue:
+        node = queue.popleft(); order.append(node)
+        <span class="kw">for</span> nbr <span class="kw">in</span> graph.get(node, []):
+            <span class="kw">if</span> nbr <span class="kw">not in</span> visited:
+                visited.add(nbr); queue.append(nbr)
+    <span class="kw">return</span> order</pre>
+      </div>
+    </div>
+    <div id="sq-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(239,68,68,.1)">⚙️</div><div><div class="usecase-title">Function Call Stack (Every Program)</div><div class="usecase-desc">Your CPU maintains a call stack. Stack frames are pushed on function call, popped on return. Stack overflow = recursion too deep. Python's traceback printout IS the call stack frames being displayed.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">🌐</div><div><div class="usecase-title">Web Server Request Queue (Nginx, Node.js)</div><div class="usecase-desc">Nginx and Node.js use event queues for incoming HTTP requests. FIFO scheduling ensures requests are handled in order. Priority queues handle premium/paid traffic with lower latency guarantees.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">📊</div><div><div class="usecase-title">Expression Evaluation (Calculators, Compilers)</div><div class="usecase-desc">Compilers use stacks to evaluate expressions. The shunting-yard algorithm converts infix "3 + 4 × 2" to postfix using a stack. Postfix is then evaluated with a second stack pass — all O(n).</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     07 — HASHING
+====================================================== -->
+<div id="topic-hashing" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#6ee7b7;border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08)">O(1) Magic</div>
+    <div class="topic-title">Hashing</div>
+    <div class="topic-subtitle">Hash functions map arbitrary keys to fixed array indices, achieving O(1) average lookup, insert, and delete. The most powerful tool for frequency counting, grouping, memoization, and deduplication.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'hash-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'hash-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'hash-usecases')">Use Cases</div>
+    </div>
+    <div id="hash-concept" class="tab-content active">
+      <div class="section-title">Hash Table with Chaining</div>
+      <div class="viz-container">
+        <div class="viz-caption">hash("apple")=1, hash("ball")=3, hash("cat")=1 → collision! Chaining: bucket 1 = [apple → cat]</div>
+        <div class="hash-viz">
+          <div class="hash-bucket"><div class="hash-bucket-idx">Bucket 0</div><div class="hash-bucket-box"></div></div>
+          <div class="hash-bucket"><div class="hash-bucket-idx">Bucket 1</div><div class="hash-bucket-box"><div class="hash-entry">apple</div><div class="hash-entry" style="background:#d97706">cat</div></div></div>
+          <div class="hash-bucket"><div class="hash-bucket-idx">Bucket 2</div><div class="hash-bucket-box"></div></div>
+          <div class="hash-bucket"><div class="hash-bucket-idx">Bucket 3</div><div class="hash-bucket-box"><div class="hash-entry" style="background:var(--green)">ball</div></div></div>
+          <div class="hash-bucket"><div class="hash-bucket-idx">Bucket 4</div><div class="hash-bucket-box"></div></div>
+        </div>
+      </div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Collision Handling</h4><p><strong>Chaining:</strong> each bucket holds a linked list (used by Java HashMap). <strong>Open Addressing:</strong> probe next slot. Python dicts use open addressing with pseudo-random probing.</p></div>
+        <div class="concept-card"><h4>Load Factor &amp; Rehashing</h4><p>Load factor = n/m (elements/buckets). Python dicts rehash when load factor exceeds ~0.67, doubling capacity. Keeps O(1) amortized per operation.</p></div>
+      </div>
+    </div>
+    <div id="hash-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="kw">from</span> collections <span class="kw">import</span> defaultdict, Counter
+
+<span class="cm"># ── Two Sum — O(n) using hash map ────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">two_sum</span>(nums, target):
+    seen = {}
+    <span class="kw">for</span> i, n <span class="kw">in</span> enumerate(nums):
+        complement = target - n
+        <span class="kw">if</span> complement <span class="kw">in</span> seen: <span class="kw">return</span> [seen[complement], i]
+        seen[n] = i
+    <span class="kw">return</span> []
+
+<span class="cm"># ── Group Anagrams — O(n·k log k) ───────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">group_anagrams</span>(words):
+    groups = defaultdict(list)
+    <span class="kw">for</span> w <span class="kw">in</span> words:
+        key = tuple(sorted(w))       <span class="cm"># canonical form</span>
+        groups[key].append(w)
+    <span class="kw">return</span> list(groups.values())
+
+<span class="cm"># ── Subarray Sum Equals K — O(n) prefix + hash ──────────────────────</span>
+<span class="kw">def</span> <span class="fn">subarray_sum</span>(nums, k):
+    count = prefix = <span class="nb">0</span>
+    seen = defaultdict(int); seen[<span class="nb">0</span>] = <span class="nb">1</span>
+    <span class="kw">for</span> n <span class="kw">in</span> nums:
+        prefix += n
+        count += seen[prefix - k]
+        seen[prefix] += <span class="nb">1</span>
+    <span class="kw">return</span> count
+
+<span class="cm"># ── Consistent Hashing — used in distributed systems ─────────────────</span>
+<span class="kw">import</span> hashlib, bisect
+<span class="kw">class</span> <span class="cls">ConsistentHash</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, replicas=<span class="nb">100</span>):
+        self.ring = {}; self.replicas = replicas; self.keys = []
+    <span class="kw">def</span> <span class="fn">_h</span>(self, key):
+        <span class="kw">return</span> int(hashlib.md5(key.encode()).hexdigest(), <span class="nb">16</span>) % (<span class="nb">2</span>**<span class="nb">32</span>)
+    <span class="kw">def</span> <span class="fn">add_node</span>(self, node):
+        <span class="kw">for</span> i <span class="kw">in</span> range(self.replicas):
+            h = self._h(f<span class="str">"{node}:{i}"</span>)
+            self.ring[h] = node; bisect.insort(self.keys, h)
+    <span class="kw">def</span> <span class="fn">get_node</span>(self, key):
+        h = self._h(key)
+        idx = bisect.bisect(self.keys, h) % len(self.keys)
+        <span class="kw">return</span> self.ring[self.keys[idx]]</pre>
+      </div>
+    </div>
+    <div id="hash-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">🔐</div><div><div class="usecase-title">Password Storage (bcrypt, SHA-256)</div><div class="usecase-desc">Passwords are hashed before storage — one-way functions make reversal computationally infeasible. Salt (random string) prevents rainbow table attacks. Every login system from Netflix to your bank uses this.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">☁️</div><div><div class="usecase-title">Distributed Systems — Consistent Hashing</div><div class="usecase-desc">DynamoDB, Cassandra, Redis Cluster distribute keys across nodes using consistent hashing. When a node is added/removed, only ~1/n keys are remapped instead of all keys — crucial for zero-downtime scaling.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">📊</div><div><div class="usecase-title">Database Hash Indexes (PostgreSQL, Redis)</div><div class="usecase-desc">SELECT WHERE id = 42 uses hash index for O(1) lookup vs O(log n) B-Tree. Redis is fundamentally a persistent hash table — every GET/SET is a hash lookup. Python's dict is a hash table with O(1) average ops.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     08 — TREES
+====================================================== -->
+<div id="topic-trees" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#d8b4fe;border-color:rgba(124,58,237,.3);background:rgba(124,58,237,.08)">Hierarchical</div>
+    <div class="topic-title">Trees</div>
+    <div class="topic-subtitle">Hierarchical, acyclic connected graphs. BST gives O(log n) operations. Heaps give O(1) max/min. Tries give O(m) string operations. Segment Trees enable O(log n) range queries with updates.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'tree-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'tree-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'tree-usecases')">Use Cases</div>
+    </div>
+    <div id="tree-concept" class="tab-content active">
+      <div class="section-title">BST Diagram</div>
+      <div class="viz-container">
+        <svg class="tree-svg" viewBox="0 0 520 210" style="max-height:210px">
+          <defs><marker id="ta2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/></marker></defs>
+          <line x1="260" y1="46" x2="152" y2="96" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#ta2)"/>
+          <line x1="260" y1="46" x2="368" y2="96" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#ta2)"/>
+          <line x1="152" y1="116" x2="92" y2="162" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#ta2)"/>
+          <line x1="152" y1="116" x2="212" y2="162" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#ta2)"/>
+          <line x1="368" y1="116" x2="432" y2="162" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" marker-end="url(#ta2)"/>
+          <circle cx="260" cy="34" r="24" fill="#4A6CF7" opacity=".9"/>
+          <text x="260" y="40" text-anchor="middle" font-size="14" fill="white" font-weight="700" font-family="JetBrains Mono, monospace">50</text>
+          <circle cx="152" cy="106" r="22" fill="#1e2535" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="152" y="112" text-anchor="middle" font-size="13" fill="#e8ecf4" font-weight="600" font-family="JetBrains Mono, monospace">30</text>
+          <circle cx="368" cy="106" r="22" fill="#1e2535" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="368" y="112" text-anchor="middle" font-size="13" fill="#e8ecf4" font-weight="600" font-family="JetBrains Mono, monospace">70</text>
+          <circle cx="92" cy="174" r="20" fill="#1e2535" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="92" y="180" text-anchor="middle" font-size="12" fill="#e8ecf4" font-weight="600" font-family="JetBrains Mono, monospace">20</text>
+          <circle cx="212" cy="174" r="20" fill="#1e2535" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="212" y="180" text-anchor="middle" font-size="12" fill="#e8ecf4" font-weight="600" font-family="JetBrains Mono, monospace">40</text>
+          <circle cx="432" cy="174" r="20" fill="#1e2535" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+          <text x="432" y="180" text-anchor="middle" font-size="12" fill="#e8ecf4" font-weight="600" font-family="JetBrains Mono, monospace">80</text>
+        </svg>
+        <div class="viz-label">BST property: all left descendants &lt; node &lt; all right descendants. In-order traversal = sorted output [20, 30, 40, 50, 70, 80]</div>
+      </div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>BST</h4><p>O(log n) search/insert/delete on balanced tree. Worst case O(n) on skewed. AVL and Red-Black trees self-balance to guarantee O(log n) always.</p></div>
+        <div class="concept-card"><h4>Heap (Priority Queue)</h4><p>Complete binary tree stored as array. Parent at i, children at 2i+1, 2i+2. O(1) peek min/max, O(log n) push/pop. Python: heapq (min-heap).</p></div>
+        <div class="concept-card"><h4>Trie (Prefix Tree)</h4><p>Each node has up to 26 children. Insert/search in O(m) where m = word length. Autocomplete, spell-check, IP routing tables.</p></div>
+        <div class="concept-card"><h4>Segment Tree</h4><p>Range sum/min/max in O(log n) with O(log n) point update. Divide array into halves recursively. O(n) build, O(n) space.</p></div>
+      </div>
+    </div>
+    <div id="tree-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="kw">class</span> <span class="cls">TreeNode</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, val=<span class="nb">0</span>):
+        self.val = val; self.left = self.right = <span class="nb">None</span>
+
+<span class="cm"># ── Tree Traversals ──────────────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">inorder</span>(root):    <span class="cm"># L → Root → R  (sorted for BST)</span>
+    <span class="kw">return</span> inorder(root.left) + [root.val] + inorder(root.right) <span class="kw">if</span> root <span class="kw">else</span> []
+
+<span class="kw">def</span> <span class="fn">level_order</span>(root):
+    <span class="kw">from</span> collections <span class="kw">import</span> deque
+    <span class="kw">if</span> <span class="kw">not</span> root: <span class="kw">return</span> []
+    q, res = deque([root]), []
+    <span class="kw">while</span> q:
+        level = []
+        <span class="kw">for</span> _ <span class="kw">in</span> range(len(q)):
+            node = q.popleft(); level.append(node.val)
+            <span class="kw">if</span> node.left:  q.append(node.left)
+            <span class="kw">if</span> node.right: q.append(node.right)
+        res.append(level)
+    <span class="kw">return</span> res
+
+<span class="cm"># ── Lowest Common Ancestor — O(n) ───────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">lca</span>(root, p, q):
+    <span class="kw">if</span> <span class="kw">not</span> root <span class="kw">or</span> root <span class="kw">is</span> p <span class="kw">or</span> root <span class="kw">is</span> q: <span class="kw">return</span> root
+    L = lca(root.left, p, q); R = lca(root.right, p, q)
+    <span class="kw">return</span> root <span class="kw">if</span> L <span class="kw">and</span> R <span class="kw">else</span> L <span class="kw">or</span> R
+
+<span class="cm"># ── Trie (Prefix Tree) ───────────────────────────────────────────────</span>
+<span class="kw">class</span> <span class="cls">Trie</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self): self.root = {}
+    <span class="kw">def</span> <span class="fn">insert</span>(self, word):
+        node = self.root
+        <span class="kw">for</span> c <span class="kw">in</span> word: node = node.setdefault(c, {})
+        node[<span class="str">'#'</span>] = <span class="nb">True</span>              <span class="cm"># end-of-word marker</span>
+    <span class="kw">def</span> <span class="fn">search</span>(self, word):
+        node = self.root
+        <span class="kw">for</span> c <span class="kw">in</span> word:
+            <span class="kw">if</span> c <span class="kw">not in</span> node: <span class="kw">return</span> <span class="nb">False</span>
+            node = node[c]
+        <span class="kw">return</span> <span class="str">'#'</span> <span class="kw">in</span> node
+    <span class="kw">def</span> <span class="fn">starts_with</span>(self, prefix):
+        node = self.root
+        <span class="kw">for</span> c <span class="kw">in</span> prefix:
+            <span class="kw">if</span> c <span class="kw">not in</span> node: <span class="kw">return</span> <span class="nb">False</span>
+            node = node[c]
+        <span class="kw">return</span> <span class="nb">True</span>
+
+<span class="cm"># ── Segment Tree — O(log n) range sum + point update ─────────────────</span>
+<span class="kw">class</span> <span class="cls">SegTree</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, arr):
+        self.n = len(arr); self.tree = [<span class="nb">0</span>] * (<span class="nb">2</span>*self.n)
+        <span class="kw">for</span> i, v <span class="kw">in</span> enumerate(arr): self.tree[self.n+i] = v
+        <span class="kw">for</span> i <span class="kw">in</span> range(self.n-<span class="nb">1</span>, <span class="nb">0</span>, -<span class="nb">1</span>):
+            self.tree[i] = self.tree[<span class="nb">2</span>*i] + self.tree[<span class="nb">2</span>*i+<span class="nb">1</span>]
+    <span class="kw">def</span> <span class="fn">update</span>(self, i, val):
+        i += self.n; self.tree[i] = val
+        <span class="kw">while</span> i > <span class="nb">1</span>: i //= <span class="nb">2</span>; self.tree[i] = self.tree[<span class="nb">2</span>*i]+self.tree[<span class="nb">2</span>*i+<span class="nb">1</span>]
+    <span class="kw">def</span> <span class="fn">query</span>(self, l, r):              <span class="cm"># sum in [l, r)</span>
+        res = <span class="nb">0</span>; l += self.n; r += self.n
+        <span class="kw">while</span> l &lt; r:
+            <span class="kw">if</span> l&amp;<span class="nb">1</span>: res += self.tree[l]; l += <span class="nb">1</span>
+            <span class="kw">if</span> r&amp;<span class="nb">1</span>: r -= <span class="nb">1</span>; res += self.tree[r]
+            l >>= <span class="nb">1</span>; r >>= <span class="nb">1</span>
+        <span class="kw">return</span> res</pre>
+      </div>
+    </div>
+    <div id="tree-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(124,58,237,.1)">🗄️</div><div><div class="usecase-title">Database B+ Tree Indexes (MySQL InnoDB)</div><div class="usecase-desc">Every database index is a B+ Tree — a balanced tree where all data lives in leaf nodes. O(log n) point search + O(1) sequential scan for range queries. This is fundamental to all SQL query performance.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">🔤</div><div><div class="usecase-title">Autocomplete (Google, VSCode IntelliSense)</div><div class="usecase-desc">Tries store every known word/symbol. Typing "ap" traverses root → 'a' → 'p', then DFS finds all completions: "apple", "application", "apply". VSCode's symbol search uses a trie over your codebase.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">📈</div><div><div class="usecase-title">Time-Series Range Queries (Grafana, InfluxDB)</div><div class="usecase-desc">Segment trees power time-series analytics: "sum of page views between 2pm and 5pm" answered in O(log n). Point updates as metrics arrive, no full recomputation. Used in monitoring dashboards and stock data feeds.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     09 — GRAPHS
+====================================================== -->
+<div id="topic-graphs" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#f9a8d4;border-color:rgba(236,72,153,.3);background:rgba(236,72,153,.08)">Interconnected</div>
+    <div class="topic-title">Graphs</div>
+    <div class="topic-subtitle">Vertices connected by edges. Models social networks, road maps, dependencies, internet routing, and circuit layouts. Master BFS, DFS, Dijkstra, topological sort, and Union-Find.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'graph-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'graph-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'graph-usecases')">Use Cases</div>
+    </div>
+    <div id="graph-concept" class="tab-content active">
+      <div class="concept-grid">
+        <div class="concept-card"><h4>Representation</h4><p><strong>Adjacency List:</strong> dict of lists. Space O(V+E). Best for sparse graphs (most real graphs). <strong>Adjacency Matrix:</strong> V×V. Space O(V²). Best for dense graphs and fast edge queries.</p></div>
+        <div class="concept-card"><h4>BFS vs DFS</h4><p>BFS (queue): shortest path unweighted, level-by-level exploration. DFS (stack/recursion): cycle detection, topological sort, SCCs. Both O(V+E).</p></div>
+        <div class="concept-card"><h4>Dijkstra's Algorithm</h4><p>Shortest path with non-negative weights. Greedy: always expand the closest unvisited node. O((V+E) log V) with min-heap. Fails with negative edges.</p></div>
+        <div class="concept-card"><h4>Union-Find (DSU)</h4><p>Tracks connected components. O(α(n)) ≈ O(1) per operation with path compression + rank. Perfect for Kruskal's MST and detecting cycles in undirected graphs.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Algorithm</th><th>Time</th><th>Space</th><th>Use Case</th></tr>
+          <tr><td>BFS</td><td class="c-green">O(V+E)</td><td class="c-amber">O(V)</td><td>Shortest path (unweighted)</td></tr>
+          <tr><td>DFS</td><td class="c-green">O(V+E)</td><td class="c-amber">O(V)</td><td>Cycle detection, topo sort</td></tr>
+          <tr><td>Dijkstra</td><td class="c-green">O((V+E)logV)</td><td class="c-amber">O(V)</td><td>Shortest path (non-neg weights)</td></tr>
+          <tr><td>Bellman-Ford</td><td class="c-amber">O(VE)</td><td class="c-amber">O(V)</td><td>Negative edge weights</td></tr>
+          <tr><td>Floyd-Warshall</td><td class="c-red">O(V³)</td><td class="c-red">O(V²)</td><td>All-pairs shortest path</td></tr>
+          <tr><td>Prim's / Kruskal's</td><td class="c-green">O(E logV)</td><td class="c-amber">O(V)</td><td>Minimum Spanning Tree</td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="graph-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="kw">from</span> collections <span class="kw">import</span> defaultdict, deque
+<span class="kw">import</span> heapq
+
+<span class="cm"># ── Dijkstra's Shortest Path — O((V+E) log V) ────────────────────────</span>
+<span class="kw">def</span> <span class="fn">dijkstra</span>(graph, start, n):
+    dist = [<span class="nb">float</span>(<span class="str">'inf'</span>)] * n; dist[start] = <span class="nb">0</span>
+    heap = [(<span class="nb">0</span>, start)]
+    <span class="kw">while</span> heap:
+        d, u = heapq.heappop(heap)
+        <span class="kw">if</span> d > dist[u]: <span class="kw">continue</span>          <span class="cm"># stale entry</span>
+        <span class="kw">for</span> v, w <span class="kw">in</span> graph[u]:
+            <span class="kw">if</span> dist[u] + w &lt; dist[v]:
+                dist[v] = dist[u] + w
+                heapq.heappush(heap, (dist[v], v))
+    <span class="kw">return</span> dist
+
+<span class="cm"># ── Topological Sort — Kahn's BFS ────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">topo_sort</span>(n, edges):
+    graph = defaultdict(list); indegree = [<span class="nb">0</span>] * n
+    <span class="kw">for</span> u, v <span class="kw">in</span> edges: graph[u].append(v); indegree[v] += <span class="nb">1</span>
+    q = deque(i <span class="kw">for</span> i <span class="kw">in</span> range(n) <span class="kw">if</span> indegree[i] == <span class="nb">0</span>)
+    order = []
+    <span class="kw">while</span> q:
+        u = q.popleft(); order.append(u)
+        <span class="kw">for</span> v <span class="kw">in</span> graph[u]:
+            indegree[v] -= <span class="nb">1</span>
+            <span class="kw">if</span> indegree[v] == <span class="nb">0</span>: q.append(v)
+    <span class="kw">return</span> order <span class="kw">if</span> len(order) == n <span class="kw">else</span> []    <span class="cm"># [] = cycle detected</span>
+
+<span class="cm"># ── Union-Find (DSU) with path compression + rank ────────────────────</span>
+<span class="kw">class</span> <span class="cls">DSU</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, n):
+        self.p = list(range(n)); self.rank = [<span class="nb">0</span>] * n
+    <span class="kw">def</span> <span class="fn">find</span>(self, x):
+        <span class="kw">if</span> self.p[x] != x:
+            self.p[x] = self.find(self.p[x])    <span class="cm"># path compression</span>
+        <span class="kw">return</span> self.p[x]
+    <span class="kw">def</span> <span class="fn">union</span>(self, x, y):
+        rx, ry = self.find(x), self.find(y)
+        <span class="kw">if</span> rx == ry: <span class="kw">return</span> <span class="nb">False</span>               <span class="cm"># already connected</span>
+        <span class="kw">if</span> self.rank[rx] &lt; self.rank[ry]: rx, ry = ry, rx
+        self.p[ry] = rx
+        <span class="kw">if</span> self.rank[rx] == self.rank[ry]: self.rank[rx] += <span class="nb">1</span>
+        <span class="kw">return</span> <span class="nb">True</span>
+
+<span class="cm"># ── DFS — iterative (avoids Python recursion limit) ──────────────────</span>
+<span class="kw">def</span> <span class="fn">dfs</span>(graph, start):
+    visited, stack, order = set(), [start], []
+    <span class="kw">while</span> stack:
+        node = stack.pop()
+        <span class="kw">if</span> node <span class="kw">in</span> visited: <span class="kw">continue</span>
+        visited.add(node); order.append(node)
+        <span class="kw">for</span> nbr, _ <span class="kw">in</span> graph.get(node, []): stack.append(nbr)
+    <span class="kw">return</span> order
+
+<span class="cm"># ── Number of Islands — DFS on grid ──────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">num_islands</span>(grid):
+    <span class="kw">def</span> <span class="fn">dfs</span>(r, c):
+        <span class="kw">if</span> r &lt; <span class="nb">0</span> <span class="kw">or</span> r >= len(grid) <span class="kw">or</span> c &lt; <span class="nb">0</span> <span class="kw">or</span> c >= len(grid[<span class="nb">0</span>]): <span class="kw">return</span>
+        <span class="kw">if</span> grid[r][c] != <span class="str">'1'</span>: <span class="kw">return</span>
+        grid[r][c] = <span class="str">'0'</span>     <span class="cm"># mark visited</span>
+        dfs(r+<span class="nb">1</span>,c); dfs(r-<span class="nb">1</span>,c); dfs(r,c+<span class="nb">1</span>); dfs(r,c-<span class="nb">1</span>)
+    count = <span class="nb">0</span>
+    <span class="kw">for</span> r <span class="kw">in</span> range(len(grid)):
+        <span class="kw">for</span> c <span class="kw">in</span> range(len(grid[<span class="nb">0</span>])):
+            <span class="kw">if</span> grid[r][c] == <span class="str">'1'</span>: dfs(r, c); count += <span class="nb">1</span>
+    <span class="kw">return</span> count</pre>
+      </div>
+    </div>
+    <div id="graph-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(236,72,153,.1)">🗺️</div><div><div class="usecase-title">Google Maps Navigation</div><div class="usecase-desc">Road network = weighted directed graph. Dijkstra (or A* with heuristic for speed) finds shortest path. Landmark routing and contraction hierarchies scale it to billions of nodes with sub-second responses.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">👥</div><div><div class="usecase-title">LinkedIn/Facebook Friend Suggestions</div><div class="usecase-desc">Social network = undirected graph. BFS from your node at depth 2 finds "people you may know." Betweenness centrality finds influencers. PageRank (iterative graph algorithm) powers Google Search ranking.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">📦</div><div><div class="usecase-title">npm/pip Package Dependency Resolution</div><div class="usecase-desc">Package dependencies form a DAG. Topological sort determines install order (all deps before the package). Cycle detection catches circular dependencies. npm's resolver uses Kahn's algorithm directly.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">🌐</div><div><div class="usecase-title">Internet Routing (OSPF, BGP)</div><div class="usecase-desc">Routers run Dijkstra (OSPF) to compute shortest paths through the network graph. BGP propagates routing updates between autonomous systems. The entire internet's packet routing is a graph algorithm running continuously.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================
+     10 — DYNAMIC PROGRAMMING
+====================================================== -->
+<div id="topic-dp" class="topic">
+  <div class="topic-header">
+    <div class="topic-tag" style="color:#fca5a5;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08)">Most Powerful</div>
+    <div class="topic-title">Dynamic Programming</div>
+    <div class="topic-subtitle">Break problems into overlapping subproblems. Store results to avoid recomputation. DP = optimal substructure + overlapping subproblems. Top-down (memoization) or bottom-up (tabulation). Converts exponential to polynomial.</div>
+  </div>
+  <div class="topic-body">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(this,'dp-concept')">Concept</div>
+      <div class="tab" onclick="switchTab(this,'dp-code')">Implementation</div>
+      <div class="tab" onclick="switchTab(this,'dp-usecases')">Use Cases</div>
+    </div>
+    <div id="dp-concept" class="tab-content active">
+      <div class="info-box amber">🧠 The DP mindset: "Can I express the answer to a larger version using answers to smaller versions of the same problem?" If yes, you have optimal substructure → DP applies.</div>
+      <div class="concept-grid">
+        <div class="concept-card"><h4>1D DP Patterns</h4><p>dp[i] = best answer considering first i elements. Fibonacci, climbing stairs, house robber, jump game. Transition uses dp[i-1], dp[i-2], or previous elements.</p></div>
+        <div class="concept-card"><h4>2D DP Patterns</h4><p>dp[i][j] = answer for subproblem (i, j). LCS, edit distance, 0/1 knapsack, coin change, unique paths. Build from (0,0) to (n,m).</p></div>
+        <div class="concept-card"><h4>Top-Down vs Bottom-Up</h4><p>Top-down (memoized recursion): natural to write, only computes needed states. Bottom-up (tabulation): no stack overhead, cache-friendly, easier space optimization.</p></div>
+        <div class="concept-card"><h4>Space Optimization</h4><p>Many 2D DP problems need only previous row. Reduce O(nm) → O(n) space. 0/1 Knapsack: iterate right-to-left over capacity to avoid counting same item twice.</p></div>
+      </div>
+      <div class="table-wrap">
+        <table class="complexity-table">
+          <tr><th>Problem</th><th>Brute Force</th><th>With DP</th><th>Improvement</th></tr>
+          <tr><td>Fibonacci(50)</td><td class="c-red">O(2ⁿ) = 10¹⁵</td><td class="c-green">O(n)</td><td>Trillion → 50 ops</td></tr>
+          <tr><td>Longest Common Subseq.</td><td class="c-red">O(2ⁿ)</td><td class="c-green">O(nm)</td><td>Exponential → polynomial</td></tr>
+          <tr><td>0/1 Knapsack</td><td class="c-red">O(2ⁿ)</td><td class="c-green">O(nW)</td><td>Exponential → pseudo-poly</td></tr>
+          <tr><td>Edit Distance</td><td class="c-red">O(3ⁿ)</td><td class="c-green">O(nm)</td><td>Exponential → polynomial</td></tr>
+          <tr><td>Coin Change</td><td class="c-red">O(kⁿ)</td><td class="c-green">O(nW)</td><td>Exponential → polynomial</td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="dp-code" class="tab-content">
+      <div class="code-wrap">
+        <div class="code-header"><div style="display:flex;align-items:center;gap:10px"><div class="code-dots"><div class="code-dot" style="background:#ff5f57"></div><div class="code-dot" style="background:#febc2e"></div><div class="code-dot" style="background:#28c840"></div></div><span class="code-lang">Python</span></div><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+<pre><span class="cm"># ── 0/1 Knapsack — O(nW) ────────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">knapsack</span>(weights, values, W):
+    n = len(weights)
+    dp = [[<span class="nb">0</span>]*(W+<span class="nb">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(n+<span class="nb">1</span>)]
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nb">1</span>, n+<span class="nb">1</span>):
+        <span class="kw">for</span> w <span class="kw">in</span> range(W+<span class="nb">1</span>):
+            dp[i][w] = dp[i-<span class="nb">1</span>][w]             <span class="cm"># skip item i</span>
+            <span class="kw">if</span> weights[i-<span class="nb">1</span>] &lt;= w:
+                dp[i][w] = max(dp[i][w],
+                    dp[i-<span class="nb">1</span>][w - weights[i-<span class="nb">1</span>]] + values[i-<span class="nb">1</span>])  <span class="cm"># take it</span>
+    <span class="kw">return</span> dp[n][W]
+
+<span class="cm"># ── Longest Common Subsequence — O(nm) ──────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">lcs</span>(s, t):
+    m, n = len(s), len(t)
+    dp = [[<span class="nb">0</span>]*(n+<span class="nb">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(m+<span class="nb">1</span>)]
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nb">1</span>, m+<span class="nb">1</span>):
+        <span class="kw">for</span> j <span class="kw">in</span> range(<span class="nb">1</span>, n+<span class="nb">1</span>):
+            <span class="kw">if</span> s[i-<span class="nb">1</span>] == t[j-<span class="nb">1</span>]: dp[i][j] = dp[i-<span class="nb">1</span>][j-<span class="nb">1</span>] + <span class="nb">1</span>
+            <span class="kw">else</span>: dp[i][j] = max(dp[i-<span class="nb">1</span>][j], dp[i][j-<span class="nb">1</span>])
+    <span class="kw">return</span> dp[m][n]
+
+<span class="cm"># ── Edit Distance (Levenshtein) — O(nm) ────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">edit_distance</span>(s, t):
+    m, n = len(s), len(t)
+    dp = [[<span class="nb">0</span>]*(n+<span class="nb">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> range(m+<span class="nb">1</span>)]
+    <span class="kw">for</span> i <span class="kw">in</span> range(m+<span class="nb">1</span>): dp[i][<span class="nb">0</span>] = i
+    <span class="kw">for</span> j <span class="kw">in</span> range(n+<span class="nb">1</span>): dp[<span class="nb">0</span>][j] = j
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nb">1</span>, m+<span class="nb">1</span>):
+        <span class="kw">for</span> j <span class="kw">in</span> range(<span class="nb">1</span>, n+<span class="nb">1</span>):
+            <span class="kw">if</span> s[i-<span class="nb">1</span>] == t[j-<span class="nb">1</span>]: dp[i][j] = dp[i-<span class="nb">1</span>][j-<span class="nb">1</span>]
+            <span class="kw">else</span>: dp[i][j] = <span class="nb">1</span> + min(dp[i-<span class="nb">1</span>][j], dp[i][j-<span class="nb">1</span>], dp[i-<span class="nb">1</span>][j-<span class="nb">1</span>])
+    <span class="kw">return</span> dp[m][n]
+
+<span class="cm"># ── Coin Change — O(n·amount) ────────────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">coin_change</span>(coins, amount):
+    dp = [<span class="nb">float</span>(<span class="str">'inf'</span>)] * (amount+<span class="nb">1</span>); dp[<span class="nb">0</span>] = <span class="nb">0</span>
+    <span class="kw">for</span> a <span class="kw">in</span> range(<span class="nb">1</span>, amount+<span class="nb">1</span>):
+        <span class="kw">for</span> c <span class="kw">in</span> coins:
+            <span class="kw">if</span> c &lt;= a: dp[a] = min(dp[a], dp[a-c] + <span class="nb">1</span>)
+    <span class="kw">return</span> dp[amount] <span class="kw">if</span> dp[amount] != <span class="nb">float</span>(<span class="str">'inf'</span>) <span class="kw">else</span> -<span class="nb">1</span>
+
+<span class="cm"># ── Longest Increasing Subsequence — O(n log n) ──────────────────────</span>
+<span class="kw">import</span> bisect
+<span class="kw">def</span> <span class="fn">lis</span>(nums):
+    tails = []
+    <span class="kw">for</span> n <span class="kw">in</span> nums:
+        pos = bisect.bisect_left(tails, n)
+        <span class="kw">if</span> pos == len(tails): tails.append(n)
+        <span class="kw">else</span>: tails[pos] = n
+    <span class="kw">return</span> len(tails)
+
+<span class="cm"># ── Unique Paths (grid DP) — O(mn) ───────────────────────────────────</span>
+<span class="kw">def</span> <span class="fn">unique_paths</span>(m, n):
+    dp = [[<span class="nb">1</span>]*n <span class="kw">for</span> _ <span class="kw">in</span> range(m)]
+    <span class="kw">for</span> i <span class="kw">in</span> range(<span class="nb">1</span>, m):
+        <span class="kw">for</span> j <span class="kw">in</span> range(<span class="nb">1</span>, n):
+            dp[i][j] = dp[i-<span class="nb">1</span>][j] + dp[i][j-<span class="nb">1</span>]
+    <span class="kw">return</span> dp[m-<span class="nb">1</span>][n-<span class="nb">1</span>]</pre>
+      </div>
+    </div>
+    <div id="dp-usecases" class="tab-content">
+      <div class="usecase-list">
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(239,68,68,.1)">✍️</div><div><div class="usecase-title">Autocorrect &amp; Spell Checkers (Levenshtein)</div><div class="usecase-desc">Edit distance powers spell correction in Google Docs, Word, and phones. "teh" → "the" costs 1 transposition. The DP table computes minimum insertions/deletions/substitutions to transform any word.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(74,108,247,.1)">🧬</div><div><div class="usecase-title">Bioinformatics Sequence Alignment (BLAST)</div><div class="usecase-desc">Smith-Waterman algorithm aligns DNA/protein sequences using LCS-variant DP. Literally a 2D DP table over base pairs. Powers NCBI BLAST, BWA short-read aligner, and every modern genomics pipeline.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(16,185,129,.1)">💰</div><div><div class="usecase-title">Financial Portfolio Optimization</div><div class="usecase-desc">Selecting assets under budget = 0/1 Knapsack. "Best 10 stocks with total risk ≤ X" solved with DP. Options pricing (binomial tree) and the Black-Scholes grid use 2D DP over time and price dimensions.</div></div></div>
+        <div class="usecase-item"><div class="usecase-icon" style="background:rgba(245,158,11,.1)">📡</div><div><div class="usecase-title">Video Compression &amp; Signal Decoding</div><div class="usecase-desc">Motion estimation in H.264/H.265 video codecs uses DP for optimal block matching. The Viterbi algorithm (HMM DP) decodes GPS signals, powers speech recognition (Siri, Google), and 4G/5G data streams.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ── BINARY SEARCH VISUALIZER ──
+const bsArr = [2,5,8,11,15,19,23,27,31,35];
+function initBSArr() {
+  const c = document.getElementById('bs-arr');
+  if (!c) return;
+  c.innerHTML = '';
+  bsArr.forEach((v,i) => {
+    const el = document.createElement('div');
+    el.className = 'arr-cell';
+    el.id = `bsc-${i}`;
+    el.innerHTML = `<span>${v}</span><span class="idx">[${i}]</span>`;
+    c.appendChild(el);
+  });
+}
+function resetBSArr() {
+  initBSArr();
+  const msg = document.getElementById('bs-msg');
+  if (msg) msg.textContent = 'Click "Run Binary Search" to animate the search';
+}
+async function runBinarySearch() {
+  resetBSArr();
+  const target = 23, steps = [];
+  let lo = 0, hi = bsArr.length - 1;
+  while (lo <= hi) {
+    const mid = Math.floor((lo+hi)/2);
+    steps.push({lo, hi, mid, found: bsArr[mid]===target});
+    if (bsArr[mid] === target) break;
+    if (bsArr[mid] < target) lo = mid + 1; else hi = mid - 1;
+  }
+  for (let s = 0; s < steps.length; s++) {
+    const {lo, hi, mid, found} = steps[s];
+    await new Promise(r => setTimeout(r, 700));
+    for (let i = 0; i < bsArr.length; i++) {
+      const el = document.getElementById(`bsc-${i}`);
+      if (!el) continue;
+      el.className = 'arr-cell';
+      el.style.opacity = (i >= lo && i <= hi) ? '1' : '0.2';
+    }
+    const midEl = document.getElementById(`bsc-${mid}`);
+    const msg = document.getElementById('bs-msg');
+    if (found) {
+      if (midEl) midEl.className = 'arr-cell found';
+      if (msg) msg.textContent = `✅ Found 23 at index ${mid} in ${s+1} step${s>0?'s':''}! (vs ${bsArr.length} steps for linear search)`;
+    } else {
+      if (midEl) midEl.className = 'arr-cell highlight';
+      if (msg) msg.textContent = `Step ${s+1}: Check mid=[${mid}] → ${bsArr[mid]} ${bsArr[mid]<target ? '< target → search right half' : '> target → search left half'}`;
+    }
+  }
+}
+
+// ── NAVIGATION ──
+function showTopic(name, navEl) {
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const topic = document.getElementById('topic-' + name);
+  if (topic) topic.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  // Reset first tab
+  if (topic) {
+    const firstTab = topic.querySelector('.tab');
+    if (firstTab) {
+      topic.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      topic.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      firstTab.classList.add('active');
+      const id = firstTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+      const content = document.getElementById(id);
+      if (content) content.classList.add('active');
+    }
+  }
+  // Close mobile sidebar
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('visible');
+  }
+  // Scroll to top
+  document.getElementById('main').scrollTop = 0;
+  window.scrollTo(0, 0);
+  // Init visualizer if arrays topic
+  if (name === 'arrays') setTimeout(initBSArr, 100);
+  // Update progress
+  updateProgress(name);
+}
+
+function switchTab(el, contentId) {
+  const topic = el.closest('.topic');
+  topic.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  topic.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const content = document.getElementById(contentId);
+  if (content) content.classList.add('active');
+}
+
+// ── COPY CODE ──
+function copyCode(btn) {
+  const pre = btn.closest('.code-wrap').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.style.background = 'var(--green)';
+    btn.style.color = '#fff';
+    btn.style.borderColor = 'var(--green)';
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }, 2000);
+  });
+}
+
+// ── SIDEBAR MOBILE ──
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('visible');
+}
+
+// ── SEARCH FILTER ──
+function filterNav(val) {
+  const v = val.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = (!v || text.includes(v)) ? '' : 'none';
+  });
+}
+
+// ── PROGRESS ──
+const topicOrder = ['landing','arrays','strings','recursion','sorting','linkedlist','stackqueue','hashing','trees','graphs','dp'];
+function updateProgress(name) {
+  const idx = topicOrder.indexOf(name);
+  const pct = idx < 1 ? 0 : Math.round((idx / (topicOrder.length - 1)) * 100);
+  const bar = document.getElementById('progress');
+  if (bar) bar.style.width = pct + '%';
+}
+
+// ── KEYBOARD NAVIGATION ──
+document.addEventListener('keydown', e => {
+  const active = document.querySelector('.nav-item.active');
+  if (!active) return;
+  const items = [...document.querySelectorAll('.nav-item')].filter(el => el.style.display !== 'none');
+  const idx = items.indexOf(active);
+  if (e.key === 'ArrowDown' && idx < items.length - 1) { e.preventDefault(); items[idx+1].click(); }
+  if (e.key === 'ArrowUp' && idx > 0) { e.preventDefault(); items[idx-1].click(); }
+});
+
+// Init
+initBSArr();
+updateProgress('landing');
+</script>
+</body>
+</html>

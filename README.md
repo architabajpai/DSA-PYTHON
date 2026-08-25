@@ -1,4 +1,4 @@
-# 📚 DSA Encyclopedia — Python Data Structures & Algorithms
+# DSA Encyclopedia — Python Data Structures & Algorithms
 
 > Master DSA with detailed explanations, optimized Python implementations, complexity analysis, and real-world applications used by top tech companies.
 
@@ -10,7 +10,7 @@
 
 ---
 
-## 📖 About
+## About
 
 A comprehensive, hands-on reference guide covering every essential DSA topic — with concept explanations, Python implementations, Big-O complexity analysis, and real-world production use cases from companies like Google, Netflix, Redis, and more.
 
@@ -18,7 +18,7 @@ Open `PYTHON-DSA-HELP.html` in any modern browser and you're ready to go. No bui
 
 ---
 
-## 🗂️ Topics Covered
+## Topics Covered
 
 | # | Topic | Key Concepts | Complexity Highlights |
 |---|-------|--------------|-----------------------|
@@ -35,21 +35,21 @@ Open `PYTHON-DSA-HELP.html` in any modern browser and you're ready to go. No bui
 
 ---
 
-## ✨ Features
+## Features
 
-- 🎞️ **Interactive Binary Search Visualizer** — step-by-step animation of the search algorithm
-- 🗂️ **Tabbed Layout** — Concept / Implementation / Use Cases tabs per topic
-- 📊 **Complexity Tables** — color-coded Big-O for every operation
-- 🌍 **Real-World Use Cases** — production examples from Google, Netflix, NCBI BLAST, GPS, and more
-- 🐍 **Syntax-Highlighted Python Code** — with one-click copy buttons
-- 📈 **Progress Indicator** — tracks which topic you're on
-- ⌨️ **Keyboard Navigation** — Arrow keys to move between topics
-- 🔍 **Sidebar Search** — filter topics instantly
-- 📱 **Responsive / Mobile Friendly** — hamburger menu on small screens
+- **Interactive Binary Search Visualizer** — step-by-step animation of the search algorithm
+- **Tabbed Layout** — Concept / Implementation / Use Cases tabs per topic
+- **Complexity Tables** — color-coded Big-O for every operation
+- **Real-World Use Cases** — production examples from Google, Netflix, NCBI BLAST, GPS, and more
+- **Syntax-Highlighted Python Code** — with one-click copy buttons
+- **Progress Indicator** — tracks which topic you're on
+- **Keyboard Navigation** — Arrow keys to move between topics
+- **Sidebar Search** — filter topics instantly
+- **Responsive / Mobile Friendly** — hamburger menu on small screens
 
 ---
 
-## 🔑 Key Algorithms at a Glance
+## Key Algorithms at a Glance
 
 ### Arrays
 
@@ -145,7 +145,7 @@ def length_of_lis(nums):
 
 ---
 
-## 🌍 Real-World Use Cases
+## Real-World Use Cases
 
 | Topic | Production Example |
 |-------|--------------------|
@@ -162,7 +162,7 @@ def length_of_lis(nums):
 
 ---
 
-## 🚀 How to Use
+## How to Use
 
 1. Open `PYTHON-DSA-HELP.html` in any modern browser — no installation required.
 2. Use the **left sidebar** to navigate between topics.
@@ -174,7 +174,7 @@ def length_of_lis(nums):
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 - Any modern browser (Chrome, Firefox, Safari, Edge)
 - Internet connection (for Google Fonts — JetBrains Mono & Sora)
